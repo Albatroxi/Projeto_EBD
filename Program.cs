@@ -46,15 +46,29 @@ namespace Projeto_EBD
                     context.Database.Initialize(force: true); // Cria o banco e as tabelas, se necessário
 
                     // Verificar se a tabela 'Categorias' existe
-                    var tableExists = context.Database.SqlQuery<int>(
+                    var tableCategoria = context.Database.SqlQuery<int>(
                         "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='Categorias';"
                     ).FirstOrDefault() > 0;
 
                     // Se a tabela não existir, cria a tabela
-                    if (!tableExists)
+                    if (!tableCategoria)
                     {
                         context.Database.ExecuteSqlCommand(
                             @"CREATE TABLE Categorias (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL);"
+                        );
+                    }
+
+
+                    // Verificar se a tabela 'Categorias' existe
+                    var tableSermoes = context.Database.SqlQuery<int>(
+                        "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='Sermoes';"
+                    ).FirstOrDefault() > 0;
+
+                    // Se a tabela não existir, cria a tabela
+                    if (!tableSermoes)
+                    {
+                        context.Database.ExecuteSqlCommand(
+                            @"CREATE TABLE Sermoes (id INTEGER PRIMARY KEY AUTOINCREMENT, tema TEXT NOT NULL, arquivo TEXT NOT NULL, id_categoria INTEGER);"
                         );
                     }
 

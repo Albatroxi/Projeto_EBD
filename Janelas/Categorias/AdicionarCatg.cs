@@ -13,11 +13,11 @@ using System.Windows.Forms;
 
 namespace Projeto_EBD.Janelas.Categorias
 {
-    public partial class Adicionar : Form
+    public partial class AdicionarCatg : Form
     {
         // Definir o evento
         public event Action CategoriaAdicionada;
-        public Adicionar()
+        public AdicionarCatg()
         {
             InitializeComponent();
         }

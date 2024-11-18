@@ -67,11 +67,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBContexto\dbContexto.cs" />
-    <Compile Include="Janelas\Categorias\Adicionar.cs">
+    <Compile Include="Janelas\Categorias\AdicionarCatg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Janelas\Categorias\Adicionar.Designer.cs">
-      <DependentUpon>Adicionar.cs</DependentUpon>
+    <Compile Include="Janelas\Categorias\AdicionarCatg.Designer.cs">
+      <DependentUpon>AdicionarCatg.cs</DependentUpon>
     </Compile>
     <Compile Include="Janelas\Home.cs">
       <SubType>Form</SubType>
@@ -79,23 +79,24 @@
     <Compile Include="Janelas\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Janelas\Sermaos\Adicionar.cs">
+    <Compile Include="Janelas\Sermaos\AdicionarSerm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Janelas\Sermaos\Adicionar.Designer.cs">
-      <DependentUpon>Adicionar.cs</DependentUpon>
+    <Compile Include="Janelas\Sermaos\AdicionarSerm.Designer.cs">
+      <DependentUpon>AdicionarSerm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Categoria\Categorias.cs" />
+    <Compile Include="Model\Sermoes\Sermoes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Janelas\Categorias\Adicionar.resx">
-      <DependentUpon>Adicionar.cs</DependentUpon>
+    <EmbeddedResource Include="Janelas\Categorias\AdicionarCatg.resx">
+      <DependentUpon>AdicionarCatg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Janelas\Sermaos\Adicionar.resx">
-      <DependentUpon>Adicionar.cs</DependentUpon>
+    <EmbeddedResource Include="Janelas\Sermaos\AdicionarSerm.resx">
+      <DependentUpon>AdicionarSerm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

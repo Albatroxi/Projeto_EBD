@@ -1,5 +1,6 @@
 ﻿using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas.Categorias;
+using Projeto_EBD.Janelas.Sermaos;
 using Projeto_EBD.Model.Categoria;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace Projeto_EBD.Janelas
             try
             {
                 // Criar instância do formulário AddCat
-                Adicionar addCatForm = new Adicionar
+                AdicionarCatg addCatForm = new AdicionarCatg
                 {
                     StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
                 };
@@ -97,6 +98,34 @@ namespace Projeto_EBD.Janelas
             if (categoriaSelecionada.id != 0)
             {
                 MessageBox.Show($"Categoria: {categoriaSelecionada.nome}, ID: {categoriaSelecionada.id}");
+            }
+        }
+
+        private void adicionarSermaoStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Criar instância do formulário AddCat
+                AdicionarSerm addSermForm = new AdicionarSerm
+                {
+                    StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
+                };
+
+                // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
+                //addCatForm.SermaoAdicionado += () =>
+                //{
+                    // Recarregar as categorias no ComboBox
+                //    CarregarCategorias(cbCategoria);
+                //};
+
+                // Mostrar o formulário AddCat como modal
+                addSermForm.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                // Tratamento genérico para outras exceções
+                MessageBox.Show($"Ocorreu um erro inesperado ao iniciar a adição de sermões..\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
     }

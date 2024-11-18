@@ -36,7 +36,7 @@
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.excluirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sermãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.adicionarToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.adicionarSermaoStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.excluirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -104,17 +104,18 @@
             // sermãoToolStripMenuItem
             // 
             this.sermãoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adicionarToolStripMenuItem1,
+            this.adicionarSermaoStripMenuItem1,
             this.excluirToolStripMenuItem1});
             this.sermãoToolStripMenuItem.Name = "sermãoToolStripMenuItem";
             this.sermãoToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.sermãoToolStripMenuItem.Text = "Sermão";
             // 
-            // adicionarToolStripMenuItem1
+            // adicionarSermaoStripMenuItem1
             // 
-            this.adicionarToolStripMenuItem1.Name = "adicionarToolStripMenuItem1";
-            this.adicionarToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.adicionarToolStripMenuItem1.Text = "Adicionar";
+            this.adicionarSermaoStripMenuItem1.Name = "adicionarSermaoStripMenuItem1";
+            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.adicionarSermaoStripMenuItem1.Text = "Adicionar";
+            this.adicionarSermaoStripMenuItem1.Click += new System.EventHandler(this.adicionarSermaoStripMenuItem1_Click);
             // 
             // excluirToolStripMenuItem1
             // 
@@ -150,7 +151,7 @@
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sermãoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem adicionarToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem adicionarSermaoStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
     }
 }

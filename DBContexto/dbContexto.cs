@@ -1,4 +1,5 @@
 ﻿using Projeto_EBD.Model.Categoria;
+using Projeto_EBD.Model.Sermoes;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -12,21 +13,9 @@ namespace Projeto_EBD.DBContexto
     {
         public dbContexto() : base("name=SQLiteConnection")
         {
-            // Chamada para garantir a criação do banco
-            //VerificarECriarBanco();
         }
-
-        private void VerificarECriarBanco()
-        {
-            if (!Database.Exists())
-            {
-                // Cria o banco de dados com base no modelo
-                Database.Create();
-            }
-        }
-
         public DbSet<Categorias> Categorias { get; set; }
 
-
+        public DbSet<Sermoes> Sermoes { get; set; }
     }
 }
