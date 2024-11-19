@@ -70,7 +70,7 @@
             this.addSermDOCs.Name = "addSermDOCs";
             this.addSermDOCs.Size = new System.Drawing.Size(75, 23);
             this.addSermDOCs.TabIndex = 6;
-            this.addSermDOCs.Text = ".DOC/.DOCX";
+            this.addSermDOCs.Text = ".PDF";
             this.addSermDOCs.UseVisualStyleBackColor = true;
             this.addSermDOCs.Click += new System.EventHandler(this.addSermDOCs_Click);
             // 

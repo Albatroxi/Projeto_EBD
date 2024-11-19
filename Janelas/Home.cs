@@ -1,13 +1,16 @@
 ﻿using Microsoft.Office.Interop.Word;
+using PdfiumViewer;
 using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas.Categorias;
 using Projeto_EBD.Janelas.Sermaos;
+using Projeto_EBD.Janelas.VisualizadorArquivos;
 using Projeto_EBD.Model.Categoria;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -198,13 +201,37 @@ namespace Projeto_EBD.Janelas
                     if (sermao != null)
                     {
                         // Exibe a MessageBox com o nome do sermão e a ID
-                        MessageBox.Show($"Sermão: {sermao.tema}\nID do Sermão: {sermao.id}", "Informações do Sermão");
+                        //MessageBox.Show($"Sermão: {sermao.tema}\nID do Sermão: {sermao.id}", "Informações do Sermão");
+
+                        VisualizadorPDF vPDF = new VisualizadorPDF(sermao.arquivo);
+
+                        // Mostrar o formulário AddCat como modal
+                        vPDF.ShowDialog(this);
+
                     }
                 }
             }
             else if (e.Node.Nodes.Count > 0)
             {
                 // Caso o nó tenha filhos (categoria), não faz nada ou você pode adicionar outra ação, caso necessário
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var db = new dbContexto())
+            {
+                var sermao = db.Sermoes.FirstOrDefault(s => s.id == 1);
+
+                if (sermao != null && sermao.arquivo != null)
+                {
+                    // Define o caminho de salvamento como a mesma pasta do executável
+                    string caminhoSalvar = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "recuperado.pdf");
+
+                    // Salvar o arquivo recuperado
+                    File.WriteAllBytes(caminhoSalvar, sermao.arquivo);
+
+                }
             }
         }
     }

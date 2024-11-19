@@ -1,4 +1,5 @@
 ﻿using Projeto_EBD.DBContexto;
+using Projeto_EBD.Model.Sermoes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +26,7 @@ namespace Projeto_EBD.Janelas.Sermaos
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Arquivos Word (*.doc;*.docx)|*.doc;*.docx",
+                Filter = "Arquivos PDF (*.pdf)|*.pdf",
                 Title = "Selecione o Arquivo do Sermão"
             };
 
@@ -54,27 +55,19 @@ namespace Projeto_EBD.Janelas.Sermaos
 
                 try
                 {
-                    // Lê o arquivo como bytes
-                    byte[] arquivoBytes = File.ReadAllBytes(caminhoArquivo);
+                    byte[] arquivoBytes = File.ReadAllBytes(caminhoArquivo); // Carregar o arquivo como byte[]
 
-                    // Cria uma nova instância de Sermao
-                    var sermao = new Model.Sermoes.Sermoes
+                    var sermao = new Sermoes
                     {
                         tema = tema,
-                        id_categoria = categoriaId,
-                        arquivo = arquivoBytes
+                        arquivo = arquivoBytes,
+                        id_categoria = categoriaId
                     };
 
-                    // Adiciona o sermão ao contexto e salva
                     context.Sermoes.Add(sermao);
-                    context.SaveChanges();
+                    context.SaveChanges(); // Salvar no banco
 
                     MessageBox.Show("Sermão cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Limpa os campos do formulário
-                    lbnvSerm.Clear();
-                    //cbCategoria.SelectedIndex = -1;
-                    //txtArquivo.Clear();
 
                     // Após a inserção, disparar o evento
                     SermaoAdicionado?.Invoke();

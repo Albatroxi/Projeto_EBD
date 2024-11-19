@@ -39,6 +39,7 @@
             this.adicionarSermaoStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.excluirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ListarALL = new System.Windows.Forms.TreeView();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -132,11 +133,22 @@
             this.ListarALL.TabIndex = 14;
             this.ListarALL.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ListarALL_AfterSelect);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(696, 269);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 15;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.ListarALL);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbCategoria);
@@ -164,5 +176,6 @@
         private System.Windows.Forms.ToolStripMenuItem adicionarSermaoStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
         private System.Windows.Forms.TreeView ListarALL;
+        private System.Windows.Forms.Button button1;
     }
 }

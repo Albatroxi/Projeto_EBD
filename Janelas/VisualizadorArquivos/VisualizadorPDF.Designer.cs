@@ -28,12 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.panelPdf = new System.Windows.Forms.Panel();
+            this.SuspendLayout();
+            // 
+            // panelPdf
+            // 
+            this.panelPdf.Location = new System.Drawing.Point(13, 13);
+            this.panelPdf.Name = "panelPdf";
+            this.panelPdf.Size = new System.Drawing.Size(775, 425);
+            this.panelPdf.TabIndex = 0;
+            // 
+            // VisualizadorPDF
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panelPdf);
+            this.Name = "VisualizadorPDF";
             this.Text = "VisualizadorPDF";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel panelPdf;
     }
 }
