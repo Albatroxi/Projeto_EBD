@@ -57,6 +57,7 @@ namespace Projeto_EBD.Janelas.Categorias
             }
             catch (Exception ex)
             {
+                MessageBox.Show($"Erro ao salvar o categoria: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }

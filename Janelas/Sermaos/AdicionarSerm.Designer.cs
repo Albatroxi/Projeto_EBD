@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lbnvSerm = new System.Windows.Forms.TextBox();
             this.inserSerm = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.addSermDOCs = new System.Windows.Forms.Button();
@@ -36,12 +36,12 @@
             this.camSermArquiv = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // lbnvSerm
             // 
-            this.textBox1.Location = new System.Drawing.Point(12, 86);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(301, 20);
-            this.textBox1.TabIndex = 0;
+            this.lbnvSerm.Location = new System.Drawing.Point(12, 86);
+            this.lbnvSerm.Name = "lbnvSerm";
+            this.lbnvSerm.Size = new System.Drawing.Size(301, 20);
+            this.lbnvSerm.TabIndex = 0;
             // 
             // inserSerm
             // 
@@ -86,12 +86,12 @@
             // camSermArquiv
             // 
             this.camSermArquiv.AutoSize = true;
-            this.camSermArquiv.Location = new System.Drawing.Point(88, 154);
+            this.camSermArquiv.Location = new System.Drawing.Point(12, 155);
             this.camSermArquiv.Name = "camSermArquiv";
             this.camSermArquiv.Size = new System.Drawing.Size(0, 13);
             this.camSermArquiv.TabIndex = 8;
             // 
-            // Adicionar
+            // AdicionarSerm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -101,8 +101,8 @@
             this.Controls.Add(this.addSermDOCs);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.inserSerm);
-            this.Controls.Add(this.textBox1);
-            this.Name = "Adicionar";
+            this.Controls.Add(this.lbnvSerm);
+            this.Name = "AdicionarSerm";
             this.Text = "Adicionar";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -111,7 +111,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox lbnvSerm;
         private System.Windows.Forms.Button inserSerm;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button addSermDOCs;

@@ -68,7 +68,7 @@ namespace Projeto_EBD
                     if (!tableSermoes)
                     {
                         context.Database.ExecuteSqlCommand(
-                            @"CREATE TABLE Sermoes (id INTEGER PRIMARY KEY AUTOINCREMENT, tema TEXT NOT NULL, arquivo TEXT NOT NULL, id_categoria INTEGER);"
+                            @"CREATE TABLE Sermoes (id INTEGER PRIMARY KEY AUTOINCREMENT, tema TEXT NOT NULL, arquivo BLOB NOT NULL, id_categoria INTEGER NOT NULL);"
                         );
                     }
 

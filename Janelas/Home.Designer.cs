@@ -38,6 +38,7 @@
             this.sermãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adicionarSermaoStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.excluirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ListarALL = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,21 +114,30 @@
             // adicionarSermaoStripMenuItem1
             // 
             this.adicionarSermaoStripMenuItem1.Name = "adicionarSermaoStripMenuItem1";
-            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(125, 22);
             this.adicionarSermaoStripMenuItem1.Text = "Adicionar";
             this.adicionarSermaoStripMenuItem1.Click += new System.EventHandler(this.adicionarSermaoStripMenuItem1_Click);
             // 
             // excluirToolStripMenuItem1
             // 
             this.excluirToolStripMenuItem1.Name = "excluirToolStripMenuItem1";
-            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
             this.excluirToolStripMenuItem1.Text = "Excluir";
+            // 
+            // ListarALL
+            // 
+            this.ListarALL.Location = new System.Drawing.Point(268, 92);
+            this.ListarALL.Name = "ListarALL";
+            this.ListarALL.Size = new System.Drawing.Size(375, 334);
+            this.ListarALL.TabIndex = 14;
+            this.ListarALL.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ListarALL_AfterSelect);
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ListarALL);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.menuStrip1);
@@ -153,5 +163,6 @@
         private System.Windows.Forms.ToolStripMenuItem sermãoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adicionarSermaoStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
+        private System.Windows.Forms.TreeView ListarALL;
     }
 }
