@@ -2,6 +2,7 @@
 using Projeto_EBD.Controllers.Categoria;
 using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.DBContexto;
+using Projeto_EBD.Janelas.Carregamento;
 using Projeto_EBD.Janelas.Categorias;
 using Projeto_EBD.Janelas.Sermaos;
 using System;
@@ -24,9 +25,17 @@ namespace Projeto_EBD.Janelas
 
         visualizadorTOOL commVISUTOOL = new visualizadorTOOL();
 
+        verificandoVersao commVERSAO = new verificandoVersao();
+
         public Home()
         {
+            commVERSAO.Show();
+
+
             InitializeComponent();
+
+            Controllers.Ferramentas.verificarUPDATE.VerificarAtualizacao();
+
 
             string dbPath = AppDomain.CurrentDomain.GetData("DataDirectory") + @"projEBD.sqlite";
 
@@ -82,7 +91,7 @@ namespace Projeto_EBD.Janelas
 
         }
 
-        
+
 
         private void WordApp_DocumentBeforeClose(Document doc, ref bool cancel)
         {
@@ -93,21 +102,33 @@ namespace Projeto_EBD.Janelas
                 "Confirmação de Saída",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2, // "Não" como padrão
-                MessageBoxOptions.DefaultDesktopOnly); // Isso força o MessageBox a aparecer na frente de todas as janelas
-
+                MessageBoxDefaultButton.Button2); // "Não" como padrão
 
             if (resultado == DialogResult.No)
             {
-                // Cancelar o fechamento
+                // Cancelar o fechamento e garantir que o Word continue visível
                 cancel = true;
+                wordApp.Visible = true;
             }
             else
             {
-                // Liberar recursos e fechar o Word
-                wordApp.Quit();
-                wordApp = null;
+                // Liberar o documento atual, se ainda estiver aberto
+                if (doc != null)
+                {
+                    doc.Close(false); // Não salvar alterações
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(doc);
+                }
 
+                // Fechar o Word e liberar os recursos COM
+                if (wordApp != null)
+                {
+                    wordApp.Quit();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
+                    wordApp = null;
+
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                }
 
                 // Mostrar a janela principal (Home) de forma thread-safe
                 if (this.InvokeRequired)
@@ -117,10 +138,10 @@ namespace Projeto_EBD.Janelas
                 else
                 {
                     this.Show();
-
                 }
             }
         }
+
 
         private void CarregarTreeView()
         {
@@ -209,7 +230,6 @@ namespace Projeto_EBD.Janelas
         {
             if (e.Node.Nodes.Count == 0 && e.Node.Tag is int sermaoId)
             {
-
                 Console.WriteLine("SERMAOID: " + sermaoId);
 
                 var loadDOC = commVISUTOOL.carrDocs(sermaoId, tempFile);
@@ -226,8 +246,22 @@ namespace Projeto_EBD.Janelas
                         this.Hide();
                     }
 
-                    wordDocument = wordApp.Documents.Open(tempFile);
-                    wordApp.Visible = true;
+                    // Inicializar o WordApp, se necessário
+                    if (wordApp == null)
+                    {
+                        wordApp = new Application();
+                    }
+
+                    try
+                    {
+                        // Abrir o documento
+                        wordDocument = wordApp.Documents.Open(tempFile);
+                        wordApp.Visible = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao abrir o documento: {ex.Message}");
+                    }
                 }
             }
             else
@@ -236,5 +270,6 @@ namespace Projeto_EBD.Janelas
                 // Caso o nó tenha filhos (categoria), não faz nada ou você pode adicionar outra ação, caso necessário
             }
         }
+
     }
 }

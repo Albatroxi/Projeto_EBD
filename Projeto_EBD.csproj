@@ -46,6 +46,9 @@
       <HintPath>packages\Microsoft.Office.Interop.Word.15.0.4797.1004\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -73,10 +76,17 @@
   <ItemGroup>
     <Compile Include="Controllers\Categoria\catCRUD.cs" />
     <Compile Include="Controllers\Categoria\catTOOL.cs" />
+    <Compile Include="Controllers\Ferramentas\verificarUPDATE.cs" />
     <Compile Include="Controllers\Ferramentas\visualizadorTOOL.cs" />
     <Compile Include="Controllers\Sermao\sermCRUD.cs" />
     <Compile Include="Controllers\Sermao\sermTOOL.cs" />
     <Compile Include="DBContexto\dbContexto.cs" />
+    <Compile Include="Janelas\Carregamento\verificandoVersao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Janelas\Carregamento\verificandoVersao.Designer.cs">
+      <DependentUpon>verificandoVersao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Janelas\Categorias\AdicionarCatg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +109,9 @@
     <Compile Include="Model\Sermoes\Sermoes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Janelas\Carregamento\verificandoVersao.resx">
+      <DependentUpon>verificandoVersao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Categorias\AdicionarCatg.resx">
       <DependentUpon>AdicionarCatg.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +129,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include=".editorconfig" />
     <None Include="packages.config" />
@@ -132,7 +146,10 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Imagens\biblia.gif" />
+    <None Include="Resources\biblia.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

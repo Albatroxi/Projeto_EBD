@@ -21,8 +21,8 @@ namespace Projeto_EBD.Controllers.Ferramentas
             using (var context = new dbContexto())
             {
                 var sermao = context.Sermoes
-                    .Where(s => s.id == sermaoID)  // Filtro para pegar o sermão específico
-                    .Select(s => new { s.id, s.tema, s.arquivo })  // Seleciona apenas os campos id e tema
+                    .Where(s => s.id == sermaoID)
+                    .Select(s => new { s.id, s.tema, s.arquivo })
                     .FirstOrDefault();
 
                 if (sermao != null)
@@ -30,25 +30,43 @@ namespace Projeto_EBD.Controllers.Ferramentas
                     try
                     {
                         // Criar um fluxo na memória
-                        using (MemoryStream stream = new MemoryStream(sermao.arquivo))
-                        {
-                            // Ler o conteúdo do stream e abrir no Word
-                            File.WriteAllBytes(tempFile, sermao.arquivo);
+                        File.WriteAllBytes(tempFile, sermao.arquivo);
 
-                            // Tornar o arquivo temporário oculto
-                            //File.SetAttributes(tempFile, FileAttributes.Hidden);
+                        // Inicializar uma nova instância do Word
+                        wordApp = new Application();
+                        wordApp.Visible = false;
 
-                            return true;
-                        }
+                        // Abrir o documento
+                        wordDocument = wordApp.Documents.Open(tempFile);
+                        wordApp.Visible = true;
+
+                        return true;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Erro ao abrir o documento: {ex.Message}");
                     }
-
+                    finally
+                    {
+                        // Liberar o documento e o aplicativo Word
+                        if (wordDocument != null)
+                        {
+                            wordDocument.Close(false);
+                            System.Runtime.InteropServices.Marshal.ReleaseComObject(wordDocument);
+                            wordDocument = null;
+                        }
+                        if (wordApp != null)
+                        {
+                            wordApp.Quit();
+                            System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
+                            wordApp = null;
+                        }
+                        GC.Collect();
+                        GC.WaitForPendingFinalizers();
+                    }
                 }
-
             }
+
             return false;
         }
     }
