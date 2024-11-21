@@ -1,4 +1,5 @@
-﻿using Projeto_EBD.DBContexto;
+﻿using Projeto_EBD.Controllers.Categoria;
+using Projeto_EBD.DBContexto;
 using Projeto_EBD.Model.Categoria;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace Projeto_EBD.Janelas.Categorias
 {
     public partial class AdicionarCatg : Form
     {
+        catCRUD commCATEG = new catCRUD();
+
         // Definir o evento
         public event Action CategoriaAdicionada;
         public AdicionarCatg()
@@ -24,41 +27,18 @@ namespace Projeto_EBD.Janelas.Categorias
 
         private void insCat_Click(object sender, EventArgs e)
         {
-            try
+
+            bool resultado = commCATEG.addCategoria(lbnvCat.Text);
+
+            if (resultado)
             {
-                // Pegando o valor da Label lbnvCat
-                string nvCat = lbnvCat.Text;
+                // Categoria adicionada com sucesso
+                MessageBox.Show("Categoria adicionada com sucesso.");
 
-                // Verificando se o nome não está vazio
-                if (!string.IsNullOrWhiteSpace(nvCat))
-                {
-                    // Usando o contexto do banco de dados para adicionar a pessoa
-                    using (var context = new dbContexto())
-                    {
-                        Model.Categoria.Categorias novaCategoria = new Model.Categoria.Categorias { nome = nvCat };
-                        context.Categorias.Add(novaCategoria);
-                        context.SaveChanges();
-                    }
+                // Após a inserção, disparar o evento
+                CategoriaAdicionada?.Invoke();
 
-                    // Após a inserção, disparar o evento
-                    CategoriaAdicionada?.Invoke();
-
-                    // Fechar o formulário AddCat após adicionar
-                    this.Close();
-
-                    // Mensagem de sucesso
-                    MessageBox.Show("Categoria cadastrada com sucesso!");
-                }
-                else
-                {
-                    // Caso o nome esteja vazio ou inválido
-                    MessageBox.Show("É necessário informar um nome para a nova categoria.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao salvar o categoria: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                this.Close();
             }
         }
     }

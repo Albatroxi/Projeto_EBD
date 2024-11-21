@@ -34,76 +34,108 @@
             this.addSermDOCs = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.camSermArquiv = new System.Windows.Forms.Label();
+            this.cbCategoriaaddSERM = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lbnvSerm
             // 
-            this.lbnvSerm.Location = new System.Drawing.Point(12, 86);
+            this.lbnvSerm.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lbnvSerm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbnvSerm.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lbnvSerm.Location = new System.Drawing.Point(12, 59);
             this.lbnvSerm.Name = "lbnvSerm";
-            this.lbnvSerm.Size = new System.Drawing.Size(301, 20);
+            this.lbnvSerm.Size = new System.Drawing.Size(301, 29);
             this.lbnvSerm.TabIndex = 0;
             // 
             // inserSerm
             // 
+            this.inserSerm.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.inserSerm.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.inserSerm.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.inserSerm.ForeColor = System.Drawing.Color.White;
             this.inserSerm.Location = new System.Drawing.Point(91, 196);
             this.inserSerm.Name = "inserSerm";
-            this.inserSerm.Size = new System.Drawing.Size(136, 39);
+            this.inserSerm.Size = new System.Drawing.Size(150, 45);
             this.inserSerm.TabIndex = 1;
             this.inserSerm.Text = "Inserir";
-            this.inserSerm.UseVisualStyleBackColor = true;
+            this.inserSerm.UseVisualStyleBackColor = false;
             this.inserSerm.Click += new System.EventHandler(this.inserSerm_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(56, 63);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.label1.Location = new System.Drawing.Point(65, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(190, 20);
+            this.label1.Size = new System.Drawing.Size(242, 25);
             this.label1.TabIndex = 5;
             this.label1.Text = "Digite o nome do sermão.";
             // 
             // addSermDOCs
             // 
-            this.addSermDOCs.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.addSermDOCs.Location = new System.Drawing.Point(176, 121);
+            this.addSermDOCs.BackColor = System.Drawing.Color.SteelBlue;
+            this.addSermDOCs.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.addSermDOCs.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.addSermDOCs.ForeColor = System.Drawing.Color.White;
+            this.addSermDOCs.Location = new System.Drawing.Point(184, 136);
             this.addSermDOCs.Name = "addSermDOCs";
-            this.addSermDOCs.Size = new System.Drawing.Size(75, 23);
+            this.addSermDOCs.Size = new System.Drawing.Size(113, 30);
             this.addSermDOCs.TabIndex = 6;
-            this.addSermDOCs.Text = ".PDF";
+            this.addSermDOCs.Text = ".DOC/.DOCX";
             this.addSermDOCs.UseVisualStyleBackColor = true;
             this.addSermDOCs.Click += new System.EventHandler(this.addSermDOCs_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(27, 126);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.label2.ForeColor = System.Drawing.Color.DarkSlateGray;
+            this.label2.Location = new System.Drawing.Point(25, 140);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(143, 13);
+            this.label2.Size = new System.Drawing.Size(128, 21);
             this.label2.TabIndex = 7;
-            this.label2.Text = "Adicionar arquivo do Sermão";
+            this.label2.Text = "Carregar arquivo";
             // 
             // camSermArquiv
             // 
             this.camSermArquiv.AutoSize = true;
-            this.camSermArquiv.Location = new System.Drawing.Point(12, 155);
+            this.camSermArquiv.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.camSermArquiv.ForeColor = System.Drawing.Color.Gray;
+            this.camSermArquiv.Location = new System.Drawing.Point(12, 169);
             this.camSermArquiv.Name = "camSermArquiv";
-            this.camSermArquiv.Size = new System.Drawing.Size(0, 13);
+            this.camSermArquiv.Size = new System.Drawing.Size(0, 19);
             this.camSermArquiv.TabIndex = 8;
+            // 
+            // cbCategoriaaddSERM
+            // 
+            this.cbCategoriaaddSERM.AccessibleName = "cbCategoria";
+            this.cbCategoriaaddSERM.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.cbCategoriaaddSERM.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.cbCategoriaaddSERM.FormattingEnabled = true;
+            this.cbCategoriaaddSERM.Location = new System.Drawing.Point(69, 94);
+            this.cbCategoriaaddSERM.Name = "cbCategoriaaddSERM";
+            this.cbCategoriaaddSERM.Size = new System.Drawing.Size(200, 29);
+            this.cbCategoriaaddSERM.TabIndex = 10;
+            this.cbCategoriaaddSERM.SelectedIndexChanged += new System.EventHandler(this.cbCategoria_SelectedIndexChanged);
             // 
             // AdicionarSerm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Azure;
             this.ClientSize = new System.Drawing.Size(339, 247);
+            this.Controls.Add(this.cbCategoriaaddSERM);
             this.Controls.Add(this.camSermArquiv);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.addSermDOCs);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.inserSerm);
             this.Controls.Add(this.lbnvSerm);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "AdicionarSerm";
-            this.Text = "Adicionar";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Adicionar Sermão";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,5 +149,6 @@
         private System.Windows.Forms.Button addSermDOCs;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label camSermArquiv;
+        private System.Windows.Forms.ComboBox cbCategoriaaddSERM;
     }
 }

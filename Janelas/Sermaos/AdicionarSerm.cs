@@ -1,4 +1,8 @@
-﻿using Projeto_EBD.DBContexto;
+﻿using Microsoft.Office.Interop.Word;
+using Projeto_EBD.Controllers.Categoria;
+using Projeto_EBD.Controllers.Sermao;
+using Projeto_EBD.DBContexto;
+using Projeto_EBD.Model.Categoria;
 using Projeto_EBD.Model.Sermoes;
 using System;
 using System.Collections.Generic;
@@ -15,72 +19,57 @@ namespace Projeto_EBD.Janelas.Sermaos
 {
     public partial class AdicionarSerm : Form
     {
+        catTOOL commCATEGTOOL = new catTOOL();
+
+        sermTOOL commSERMTOOL = new sermTOOL();
+        sermCRUD commCRUD = new sermCRUD();
+
         // Definir o evento
         public event Action SermaoAdicionado;
         public AdicionarSerm()
         {
             InitializeComponent();
+
+            //Carregar as categorias
+            commCATEGTOOL.CarregarCategorias(cbCategoriaaddSERM);
         }
 
         private void addSermDOCs_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
-            {
-                Filter = "Arquivos PDF (*.pdf)|*.pdf",
-                Title = "Selecione o Arquivo do Sermão"
-            };
+            string fileUploadNome = commSERMTOOL.carregarArquivoSermao();
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                camSermArquiv.Text = openFileDialog.FileName; // Exibe o caminho do arquivo selecionado
-            }
+            camSermArquiv.Text = fileUploadNome; // Exibe o caminho do arquivo selecionado
         }
 
         private void inserSerm_Click(object sender, EventArgs e)
         {
-            using (var context = new dbContexto())
+            string tema = lbnvSerm.Text;
+            string caminhoArquivo = camSermArquiv.Text;
+            int categoriaId = 1;
+
+            if (string.IsNullOrWhiteSpace(tema) || string.IsNullOrWhiteSpace(caminhoArquivo) || categoriaId <= 0)
             {
-                string tema = lbnvSerm.Text;
-                //string categoria = cbCategoria.Text;
-                //int categoriaId = (int)cbCategoria.SelectedValue; // Obtém o ID selecionado
-                int categoriaId = 1; // Obtém o ID selecionado
+                MessageBox.Show("Por favor, preencha todos os campos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-                string caminhoArquivo = camSermArquiv.Text;
+            var categoriaSelecionada = cbCategoriaaddSERM.SelectedItem as Model.Categoria.Categorias; // Categoria é o tipo da sua classe
 
-                if (string.IsNullOrWhiteSpace(tema) || string.IsNullOrWhiteSpace(caminhoArquivo) || categoriaId <= 0)
-                {
-                    MessageBox.Show("Por favor, preencha todos os campos.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+            bool resultado =  commCRUD.addSermao(tema, caminhoArquivo, categoriaSelecionada.id);
 
-                try
-                {
-                    byte[] arquivoBytes = File.ReadAllBytes(caminhoArquivo); // Carregar o arquivo como byte[]
+            if (resultado)
+            {
+                // Após a inserção, disparar o evento
+                SermaoAdicionado?.Invoke();
 
-                    var sermao = new Sermoes
-                    {
-                        tema = tema,
-                        arquivo = arquivoBytes,
-                        id_categoria = categoriaId
-                    };
-
-                    context.Sermoes.Add(sermao);
-                    context.SaveChanges(); // Salvar no banco
-
-                    MessageBox.Show("Sermão cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // Após a inserção, disparar o evento
-                    SermaoAdicionado?.Invoke();
-
-                    // Fechar o formulário AddCat após adicionar
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Erro ao salvar o sermão: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                // Fechar o formulário AddCat após adicionar
+                this.Close();
             }
         }
 
+        private void cbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

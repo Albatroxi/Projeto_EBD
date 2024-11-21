@@ -1,37 +1,44 @@
 ﻿using Microsoft.Office.Interop.Word;
-using PdfiumViewer;
+using Projeto_EBD.Controllers.Categoria;
+using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas.Categorias;
 using Projeto_EBD.Janelas.Sermaos;
-using Projeto_EBD.Janelas.VisualizadorArquivos;
-using Projeto_EBD.Model.Categoria;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace Projeto_EBD.Janelas
 {
     public partial class Home : Form
     {
+        private Application wordApp;
+        private Document wordDocument;
+
+        string tempFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Guid.NewGuid() + ".doc");
+
+        catTOOL commCATEGTOOL = new catTOOL();
+
+        visualizadorTOOL commVISUTOOL = new visualizadorTOOL();
+
         public Home()
         {
             InitializeComponent();
 
             string dbPath = AppDomain.CurrentDomain.GetData("DataDirectory") + @"projEBD.sqlite";
-            //MessageBox.Show($"Banco de dados será armazenado em: {dbPath}");
 
             //Carregar as categorias
-            CarregarCategorias(cbCategoria);
+            //commCATEGTOOL.CarregarCategorias(cbCategoria);
 
             CarregarTreeView();
 
+            wordApp = new Application();
+
+            // Assinar o evento de fechamento do documento
+            wordApp.DocumentBeforeClose += WordApp_DocumentBeforeClose;
         }
 
         private void Adicionar_Click(object sender, EventArgs e)
@@ -54,13 +61,14 @@ namespace Projeto_EBD.Janelas
                     StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
                 };
 
-                // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
+                // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada                
                 addCatForm.CategoriaAdicionada += () =>
                 {
                     // Recarregar as categorias no ComboBox
-                    CarregarCategorias(cbCategoria);
+                    //commCATEGTOOL.CarregarCategorias(cbCategoria);
                     CarregarTreeView();
                 };
+                
 
                 // Mostrar o formulário AddCat como modal
                 addCatForm.ShowDialog(this);
@@ -74,28 +82,43 @@ namespace Projeto_EBD.Janelas
 
         }
 
-        public void CarregarCategorias(ComboBox cbCategoria)
-        {
-            try
-            {
-                using(var context = new DBContexto.dbContexto())
-                {
-                    var categorias = context.Categorias.ToList();
-                    // Criar um item em branco (ou "placeholder") e adicioná-lo à lista
-                    categorias.Insert(0, new Model.Categoria.Categorias { id = 0, nome = "Selecione uma categoria" });
+        
 
-                    // Preencha o ComboBox com os nomes das categorias
-                    cbCategoria.DataSource = categorias;
-                    cbCategoria.DisplayMember = "nome"; // Exibe o nome da categoria
-                    cbCategoria.ValueMember = "id"; // O valor será o Id da categoria
+        private void WordApp_DocumentBeforeClose(Document doc, ref bool cancel)
+        {
+            // Exibir a mensagem de confirmação
+            var resultado = MessageBox.Show(
+                "Deseja realmente fechar o aplicativo?\n" +
+                "O aplicativo será atualizado com o arquivo atual.",
+                "Confirmação de Saída",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2, // "Não" como padrão
+                MessageBoxOptions.DefaultDesktopOnly); // Isso força o MessageBox a aparecer na frente de todas as janelas
+
+
+            if (resultado == DialogResult.No)
+            {
+                // Cancelar o fechamento
+                cancel = true;
+            }
+            else
+            {
+                // Liberar recursos e fechar o Word
+                wordApp.Quit();
+                wordApp = null;
+
+
+                // Mostrar a janela principal (Home) de forma thread-safe
+                if (this.InvokeRequired)
+                {
+                    this.Invoke(new Action(() => this.Show()));
+                }
+                else
+                {
+                    this.Show();
 
                 }
-            }
-            catch (Exception ex)
-            {
-                // Tratamento genérico para outras exceções
-                MessageBox.Show($"Ocorreu um erro inesperado ao carregar categorias.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
         }
 
@@ -146,12 +169,12 @@ namespace Projeto_EBD.Janelas
 
         private void cbCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var categoriaSelecionada = cbCategoria.SelectedItem as Model.Categoria.Categorias; // Categoria é o tipo da sua classe
+            //var categoriaSelecionada = cbCategoria.SelectedItem as Model.Categoria.Categorias; // Categoria é o tipo da sua classe
 
-            if (categoriaSelecionada.id != 0)
-            {
-                MessageBox.Show($"Categoria: {categoriaSelecionada.nome}, ID: {categoriaSelecionada.id}");
-            }
+            //if (categoriaSelecionada.id != 0)
+            //{
+            //    MessageBox.Show($"Categoria: {categoriaSelecionada.nome}, ID: {categoriaSelecionada.id}");
+            //}
         }
 
         private void adicionarSermaoStripMenuItem1_Click(object sender, EventArgs e)
@@ -184,54 +207,33 @@ namespace Projeto_EBD.Janelas
 
         private void ListarALL_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            // Verifica se o nó selecionado é uma subcategoria (um sermão ou subnó, sem filhos)
             if (e.Node.Nodes.Count == 0 && e.Node.Tag is int sermaoId)
             {
-                // Obtém o sermão selecionado pela ID
-                using (var context = new dbContexto())
+
+                Console.WriteLine("SERMAOID: " + sermaoId);
+
+                var loadDOC = commVISUTOOL.carrDocs(sermaoId, tempFile);
+
+                if (loadDOC == true)
                 {
-                    var sermao = context.Sermoes
-                    .Where(s => s.id == sermaoId)  // Filtro para pegar o sermão específico
-                    .Select(s => new { s.id, s.tema, s.arquivo })  // Seleciona apenas os campos id e tema
-                    .FirstOrDefault();
-
-                    // Imprime o conteúdo em hexadecimal
-                    Console.WriteLine(BitConverter.ToString(sermao.arquivo));
-
-                    if (sermao != null)
+                    // Esconder a janela principal (Home) de forma thread-safe
+                    if (this.InvokeRequired)
                     {
-                        // Exibe a MessageBox com o nome do sermão e a ID
-                        //MessageBox.Show($"Sermão: {sermao.tema}\nID do Sermão: {sermao.id}", "Informações do Sermão");
-
-                        VisualizadorPDF vPDF = new VisualizadorPDF(sermao.arquivo);
-
-                        // Mostrar o formulário AddCat como modal
-                        vPDF.ShowDialog(this);
-
+                        this.Invoke(new Action(() => this.Hide()));
                     }
+                    else
+                    {
+                        this.Hide();
+                    }
+
+                    wordDocument = wordApp.Documents.Open(tempFile);
+                    wordApp.Visible = true;
                 }
             }
-            else if (e.Node.Nodes.Count > 0)
+            else
             {
+                Console.WriteLine("TEM NADA");
                 // Caso o nó tenha filhos (categoria), não faz nada ou você pode adicionar outra ação, caso necessário
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (var db = new dbContexto())
-            {
-                var sermao = db.Sermoes.FirstOrDefault(s => s.id == 1);
-
-                if (sermao != null && sermao.arquivo != null)
-                {
-                    // Define o caminho de salvamento como a mesma pasta do executável
-                    string caminhoSalvar = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "recuperado.pdf");
-
-                    // Salvar o arquivo recuperado
-                    File.WriteAllBytes(caminhoSalvar, sermao.arquivo);
-
-                }
             }
         }
     }

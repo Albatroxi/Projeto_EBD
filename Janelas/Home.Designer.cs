@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbCategoria = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Home));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.categoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adicionarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,38 +38,21 @@
             this.adicionarSermaoStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.excluirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ListarALL = new System.Windows.Forms.TreeView();
-            this.button1 = new System.Windows.Forms.Button();
+            this.lbTitulo = new System.Windows.Forms.Label();
+            this.descriptRaiz = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // cbCategoria
-            // 
-            this.cbCategoria.AccessibleName = "cbCategoria";
-            this.cbCategoria.FormattingEnabled = true;
-            this.cbCategoria.Location = new System.Drawing.Point(13, 92);
-            this.cbCategoria.Name = "cbCategoria";
-            this.cbCategoria.Size = new System.Drawing.Size(174, 21);
-            this.cbCategoria.TabIndex = 9;
-            this.cbCategoria.SelectedIndexChanged += new System.EventHandler(this.cbCategoria_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 73);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(177, 16);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Qual a categoria desejada ?";
-            // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.categoriaToolStripMenuItem,
             this.sermãoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 27);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -80,27 +62,35 @@
             this.adicionarToolStripMenuItem,
             this.editarToolStripMenuItem,
             this.excluirToolStripMenuItem});
+            this.categoriaToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.categoriaToolStripMenuItem.ForeColor = System.Drawing.Color.Navy;
             this.categoriaToolStripMenuItem.Name = "categoriaToolStripMenuItem";
-            this.categoriaToolStripMenuItem.Size = new System.Drawing.Size(70, 20);
+            this.categoriaToolStripMenuItem.Size = new System.Drawing.Size(80, 23);
             this.categoriaToolStripMenuItem.Text = "Categoria";
             // 
             // adicionarToolStripMenuItem
             // 
+            this.adicionarToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.adicionarToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.adicionarToolStripMenuItem.Name = "adicionarToolStripMenuItem";
-            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.adicionarToolStripMenuItem.Text = "Adicionar";
             this.adicionarToolStripMenuItem.Click += new System.EventHandler(this.adicionarToolStripMenuItem_Click);
             // 
             // editarToolStripMenuItem
             // 
+            this.editarToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.editarToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            this.editarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.editarToolStripMenuItem.Text = "Editar";
             // 
             // excluirToolStripMenuItem
             // 
+            this.excluirToolStripMenuItem.BackColor = System.Drawing.Color.White;
+            this.excluirToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
-            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.excluirToolStripMenuItem.Text = "Excluir";
             // 
             // sermãoToolStripMenuItem
@@ -109,53 +99,71 @@
             this.adicionarSermaoStripMenuItem1,
             this.excluirToolStripMenuItem1});
             this.sermãoToolStripMenuItem.Name = "sermãoToolStripMenuItem";
-            this.sermãoToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.sermãoToolStripMenuItem.Size = new System.Drawing.Size(67, 23);
             this.sermãoToolStripMenuItem.Text = "Sermão";
             // 
             // adicionarSermaoStripMenuItem1
             // 
             this.adicionarSermaoStripMenuItem1.Name = "adicionarSermaoStripMenuItem1";
-            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(135, 24);
             this.adicionarSermaoStripMenuItem1.Text = "Adicionar";
             this.adicionarSermaoStripMenuItem1.Click += new System.EventHandler(this.adicionarSermaoStripMenuItem1_Click);
             // 
             // excluirToolStripMenuItem1
             // 
             this.excluirToolStripMenuItem1.Name = "excluirToolStripMenuItem1";
-            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(125, 22);
+            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(135, 24);
             this.excluirToolStripMenuItem1.Text = "Excluir";
             // 
             // ListarALL
             // 
-            this.ListarALL.Location = new System.Drawing.Point(268, 92);
+            this.ListarALL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ListarALL.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.ListarALL.FullRowSelect = true;
+            this.ListarALL.Location = new System.Drawing.Point(239, 88);
             this.ListarALL.Name = "ListarALL";
-            this.ListarALL.Size = new System.Drawing.Size(375, 334);
+            this.ListarALL.Size = new System.Drawing.Size(316, 300);
             this.ListarALL.TabIndex = 14;
             this.ListarALL.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.ListarALL_AfterSelect);
             // 
-            // button1
+            // lbTitulo
             // 
-            this.button1.Location = new System.Drawing.Point(696, 269);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.lbTitulo.AutoSize = true;
+            this.lbTitulo.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.lbTitulo.ForeColor = System.Drawing.Color.Navy;
+            this.lbTitulo.Location = new System.Drawing.Point(368, 66);
+            this.lbTitulo.Name = "lbTitulo";
+            this.lbTitulo.Size = new System.Drawing.Size(58, 19);
+            this.lbTitulo.TabIndex = 10;
+            this.lbTitulo.Text = "Acervo";
+            // 
+            // descriptRaiz
+            // 
+            this.descriptRaiz.BackColor = System.Drawing.Color.LightGray;
+            this.descriptRaiz.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic);
+            this.descriptRaiz.ForeColor = System.Drawing.Color.Gray;
+            this.descriptRaiz.Location = new System.Drawing.Point(0, 430);
+            this.descriptRaiz.Name = "descriptRaiz";
+            this.descriptRaiz.Size = new System.Drawing.Size(800, 20);
+            this.descriptRaiz.TabIndex = 15;
+            this.descriptRaiz.Text = "Aqui você poderá selecionar a categoria e, acessar todos os assuntos vinculados.";
+            this.descriptRaiz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(800, 500);
+            this.Controls.Add(this.descriptRaiz);
+            this.Controls.Add(this.lbTitulo);
             this.Controls.Add(this.ListarALL);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.cbCategoria);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Home";
-            this.Text = "Projeto EBD";
+            this.Text = "Projeto EBD - Gerenciamento";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -164,9 +172,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cbCategoria;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem categoriaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adicionarToolStripMenuItem;
@@ -176,6 +181,7 @@
         private System.Windows.Forms.ToolStripMenuItem adicionarSermaoStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
         private System.Windows.Forms.TreeView ListarALL;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label lbTitulo;
+        private System.Windows.Forms.Label descriptRaiz;
     }
 }
