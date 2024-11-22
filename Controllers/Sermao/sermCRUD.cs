@@ -1,11 +1,7 @@
 ﻿using Projeto_EBD.DBContexto;
 using Projeto_EBD.Model.Sermoes;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Projeto_EBD.Controllers.Sermao

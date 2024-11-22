@@ -99,6 +99,12 @@
     <Compile Include="Janelas\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
+    <Compile Include="Janelas\Identificacao\loginFormulario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Janelas\Identificacao\loginFormulario.Designer.cs">
+      <DependentUpon>loginFormulario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Janelas\Sermaos\AdicionarSerm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Janelas\Identificacao\loginFormulario.resx">
+      <DependentUpon>loginFormulario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Sermaos\AdicionarSerm.resx">
       <DependentUpon>AdicionarSerm.cs</DependentUpon>

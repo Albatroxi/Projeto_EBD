@@ -2,7 +2,6 @@
 using Projeto_EBD.Controllers.Categoria;
 using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.DBContexto;
-using Projeto_EBD.Janelas.Carregamento;
 using Projeto_EBD.Janelas.Categorias;
 using Projeto_EBD.Janelas.Sermaos;
 using System;
@@ -25,16 +24,14 @@ namespace Projeto_EBD.Janelas
 
         visualizadorTOOL commVISUTOOL = new visualizadorTOOL();
 
-        verificandoVersao commVERSAO = new verificandoVersao();
+        //verificandoVersao commVERSAO = new verificandoVersao();
 
         public Home()
         {
-            commVERSAO.Show();
+            //commVERSAO.Show();
 
 
             InitializeComponent();
-
-            Controllers.Ferramentas.verificarUPDATE.VerificarAtualizacao();
 
 
             string dbPath = AppDomain.CurrentDomain.GetData("DataDirectory") + @"projEBD.sqlite";

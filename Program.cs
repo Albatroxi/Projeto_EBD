@@ -1,10 +1,10 @@
 ﻿using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas;
+using Projeto_EBD.Janelas.Carregamento;
+using Projeto_EBD.Janelas.Identificacao;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Projeto_EBD
@@ -32,7 +32,45 @@ namespace Projeto_EBD
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Home());
+            //Application.Run(new verificandoVersao());
+
+            // Primeiro, abre o formulário de verificação
+            verificandoVersao formVerificandoVersao = new verificandoVersao();
+            formVerificandoVersao.ShowDialog(); // Aguarda o fechamento do formulário de verificação
+
+            // Após o fechamento da tela de verificação, abre o formulário de login
+            loginFormulario formLogin = new loginFormulario();
+
+            // Mostra o formulário de login como uma janela modal
+            if (formLogin.ShowDialog() == DialogResult.OK) // Supondo que você retorne OK no login bem-sucedido
+            {
+                // Se o login for bem-sucedido, fecha o login e abre o home
+                formLogin.Close();
+
+                Home formHome = new Home();
+                Application.Run(formHome); // Inicia o formulário principal
+            }
+            else
+            {
+                // Caso o login falhe, a aplicação pode ser encerrada ou algo mais pode ser feito
+                MessageBox.Show("Login falhou! A aplicação será encerrada.");
+                Environment.Exit(0);
+            }
+
+
+            /*
+            using (var verificandoVersao = new verificandoVersao())
+            {
+                // Exibe o primeiro formulário
+                if (verificandoVersao.ShowDialog() == DialogResult.OK)
+                {
+                    // Abre o próximo formulário Home somente após o fechamento do VerificandoVersao
+                    Application.Run(new Home());
+                }
+            }
+            */
+
+
         }
 
         public static void CriarBancoDeDadosEIniciarTabelas()

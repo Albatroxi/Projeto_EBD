@@ -1,11 +1,8 @@
 ﻿using Microsoft.Office.Interop.Word;
 using Projeto_EBD.DBContexto;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Application = Microsoft.Office.Interop.Word.Application;
 
