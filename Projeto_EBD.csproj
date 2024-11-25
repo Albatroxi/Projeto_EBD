@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>iconEBD.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
@@ -76,17 +79,14 @@
   <ItemGroup>
     <Compile Include="Controllers\Categoria\catCRUD.cs" />
     <Compile Include="Controllers\Categoria\catTOOL.cs" />
+    <Compile Include="Controllers\Ferramentas\dadosESTATICOS.cs" />
+    <Compile Include="Controllers\Ferramentas\githubTOOL.cs" />
+    <Compile Include="Controllers\Ferramentas\Procedimentos\arquivosMANAGER.cs" />
     <Compile Include="Controllers\Ferramentas\verificarUPDATE.cs" />
     <Compile Include="Controllers\Ferramentas\visualizadorTOOL.cs" />
     <Compile Include="Controllers\Sermao\sermCRUD.cs" />
     <Compile Include="Controllers\Sermao\sermTOOL.cs" />
     <Compile Include="DBContexto\dbContexto.cs" />
-    <Compile Include="Janelas\Carregamento\verificandoVersao.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Janelas\Carregamento\verificandoVersao.Designer.cs">
-      <DependentUpon>verificandoVersao.cs</DependentUpon>
-    </Compile>
     <Compile Include="Janelas\Categorias\AdicionarCatg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,12 +99,6 @@
     <Compile Include="Janelas\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Janelas\Identificacao\loginFormulario.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Janelas\Identificacao\loginFormulario.Designer.cs">
-      <DependentUpon>loginFormulario.cs</DependentUpon>
-    </Compile>
     <Compile Include="Janelas\Sermaos\AdicionarSerm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,17 +109,11 @@
     <Compile Include="Model\Sermoes\Sermoes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Janelas\Carregamento\verificandoVersao.resx">
-      <DependentUpon>verificandoVersao.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Categorias\AdicionarCatg.resx">
       <DependentUpon>AdicionarCatg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Janelas\Identificacao\loginFormulario.resx">
-      <DependentUpon>loginFormulario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Sermaos\AdicionarSerm.resx">
       <DependentUpon>AdicionarSerm.cs</DependentUpon>
@@ -156,6 +144,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="iconEBD.ico" />
     <Content Include="Imagens\biblia.gif" />
     <None Include="Resources\biblia.gif" />
   </ItemGroup>

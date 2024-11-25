@@ -1,6 +1,4 @@
-﻿using Microsoft.Office.Interop.Word;
-using Projeto_EBD.Controllers.Categoria;
-using Projeto_EBD.Controllers.Ferramentas;
+﻿using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas.Categorias;
 using Projeto_EBD.Janelas.Sermaos;
@@ -9,42 +7,59 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Application = Microsoft.Office.Interop.Word.Application;
 
 namespace Projeto_EBD.Janelas
 {
     public partial class Home : Form
     {
-        private Application wordApp;
-        private Document wordDocument;
 
+        private visualizadorTOOL commVISUTOOL; // Apenas a declaração
         string tempFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Guid.NewGuid() + ".doc");
 
-        catTOOL commCATEGTOOL = new catTOOL();
-
-        visualizadorTOOL commVISUTOOL = new visualizadorTOOL();
-
-        //verificandoVersao commVERSAO = new verificandoVersao();
 
         public Home()
         {
-            //commVERSAO.Show();
-
 
             InitializeComponent();
-
-
             string dbPath = AppDomain.CurrentDomain.GetData("DataDirectory") + @"projEBD.sqlite";
-
-            //Carregar as categorias
-            //commCATEGTOOL.CarregarCategorias(cbCategoria);
-
             CarregarTreeView();
+            this.FormClosing += Home_FormClosing;
 
-            wordApp = new Application();
 
-            // Assinar o evento de fechamento do documento
-            wordApp.DocumentBeforeClose += WordApp_DocumentBeforeClose;
+            // Inicializa o visualizadorTOOL com a instância atual do formulário
+            commVISUTOOL = new visualizadorTOOL(this);
+
+        }
+
+        private void Home_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Exibe uma mensagem antes de fechar
+            var result = MessageBox.Show("Deseja realmente sair?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            // Cancela o fechamento se o usuário clicar em "Não"
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                githubTOOL getGIT = new githubTOOL();
+                getGIT.EnviaDBANCO();
+            }
+        }
+
+
+        public void retornarHome()
+        {
+            // Mostrar a janela principal (Home) de forma thread-safe
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => this.Show()));
+            }
+            else
+            {
+                this.Show();
+            }
         }
 
         private void Adicionar_Click(object sender, EventArgs e)
@@ -70,8 +85,6 @@ namespace Projeto_EBD.Janelas
                 // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada                
                 addCatForm.CategoriaAdicionada += () =>
                 {
-                    // Recarregar as categorias no ComboBox
-                    //commCATEGTOOL.CarregarCategorias(cbCategoria);
                     CarregarTreeView();
                 };
                 
@@ -87,58 +100,6 @@ namespace Projeto_EBD.Janelas
             }
 
         }
-
-
-
-        private void WordApp_DocumentBeforeClose(Document doc, ref bool cancel)
-        {
-            // Exibir a mensagem de confirmação
-            var resultado = MessageBox.Show(
-                "Deseja realmente fechar o aplicativo?\n" +
-                "O aplicativo será atualizado com o arquivo atual.",
-                "Confirmação de Saída",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question,
-                MessageBoxDefaultButton.Button2); // "Não" como padrão
-
-            if (resultado == DialogResult.No)
-            {
-                // Cancelar o fechamento e garantir que o Word continue visível
-                cancel = true;
-                wordApp.Visible = true;
-            }
-            else
-            {
-                // Liberar o documento atual, se ainda estiver aberto
-                if (doc != null)
-                {
-                    doc.Close(false); // Não salvar alterações
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(doc);
-                }
-
-                // Fechar o Word e liberar os recursos COM
-                if (wordApp != null)
-                {
-                    wordApp.Quit();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(wordApp);
-                    wordApp = null;
-
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                }
-
-                // Mostrar a janela principal (Home) de forma thread-safe
-                if (this.InvokeRequired)
-                {
-                    this.Invoke(new Action(() => this.Show()));
-                }
-                else
-                {
-                    this.Show();
-                }
-            }
-        }
-
 
         private void CarregarTreeView()
         {
@@ -225,11 +186,18 @@ namespace Projeto_EBD.Janelas
 
         private void ListarALL_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (e.Node.Nodes.Count == 0 && e.Node.Tag is int sermaoId)
+            var categoriaNode = e.Node.Parent; // Supondo que a categoria está no nó pai
+            if (e.Node.Nodes.Count == 0 && e.Node.Tag is int sermaoId && categoriaNode?.Tag is int categoriaId)
             {
-                Console.WriteLine("SERMAOID: " + sermaoId);
+                //Console.WriteLine("SERMAOID: " + sermaoId);
 
-                var loadDOC = commVISUTOOL.carrDocs(sermaoId, tempFile);
+                // Verifica se há informações da categoria no pai ou no nó atual
+                
+
+                var loadDOC = commVISUTOOL.carrDocs(sermaoId, categoriaId, tempFile);
+
+                dadosESTATICOS.sermaoID = sermaoId;
+                dadosESTATICOS.tempFile = tempFile;
 
                 if (loadDOC == true)
                 {
@@ -241,23 +209,6 @@ namespace Projeto_EBD.Janelas
                     else
                     {
                         this.Hide();
-                    }
-
-                    // Inicializar o WordApp, se necessário
-                    if (wordApp == null)
-                    {
-                        wordApp = new Application();
-                    }
-
-                    try
-                    {
-                        // Abrir o documento
-                        wordDocument = wordApp.Documents.Open(tempFile);
-                        wordApp.Visible = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Erro ao abrir o documento: {ex.Message}");
                     }
                 }
             }

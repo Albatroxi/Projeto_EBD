@@ -2,6 +2,7 @@
 using Projeto_EBD.Model.Sermoes;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Projeto_EBD.Controllers.Sermao
@@ -43,5 +44,44 @@ namespace Projeto_EBD.Controllers.Sermao
             return false;
 
         }
+
+        public bool updateSermao(int sermaoId, string camArquivo)
+        {
+            using (var context = new dbContexto())
+            {
+                try
+                {
+                    // Encontrar o sermão pelo ID
+                    var sermao = context.Sermoes.SingleOrDefault(s => s.id == sermaoId);
+
+                    if (sermao != null)
+                    {
+                        // Carregar o novo arquivo como byte[]
+                        byte[] arquivoBytes = File.ReadAllBytes(camArquivo);
+
+                        // Atualizar o arquivo do sermão
+                        sermao.arquivo = arquivoBytes;
+
+                        // Salvar as alterações no banco de dados
+                        context.SaveChanges();
+
+                        MessageBox.Show("Sermão atualizado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Sermão não encontrado!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao atualizar o sermão: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            return false;
+        }
+
     }
 }

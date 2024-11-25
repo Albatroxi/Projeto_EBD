@@ -1,10 +1,8 @@
-﻿using Projeto_EBD.DBContexto;
+﻿using Projeto_EBD.Controllers.Ferramentas;
+using Projeto_EBD.Controllers.Ferramentas.Procedimentos;
 using Projeto_EBD.Janelas;
-using Projeto_EBD.Janelas.Carregamento;
-using Projeto_EBD.Janelas.Identificacao;
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Projeto_EBD
@@ -15,64 +13,56 @@ namespace Projeto_EBD
         /// Ponto de entrada principal para o aplicativo.
         /// </summary>
         [STAThread]
-        static void Main()
+        //static void Main(string[] args)
+        static void Main(string[] args)
         {
+            /*
+            // Simulando os argumentos para teste (somente durante o desenvolvimento)
+            if (args == null || args.Length == 0)
+            {
+                // Apenas para depuração
+                args = new string[] { "projetoEBDStart", "eclesio" };
+            }
+            */            
+
+            arquivosMANAGER gFileManager = new arquivosMANAGER();
+            gFileManager.ExcluirDocsDaPastaExecutavel();
+            gFileManager = null;  // Agora o objeto pode ser coletado, se não houver mais referências
+
+            string usuarioLogado = args[1]; // Nome do usuário logado (ou outro dado)
+
+
+            // Verifica se os argumentos foram passados corretamente
+            if (args == null || args.Length < 2 || args[0] != "projetoEBDStart")
+            {
+                MessageBox.Show(
+                    "Este programa deve ser iniciado pelo launcher.\n\n" +
+                    "Inicie o programa através do launcher ou forneça os argumentos necessários.",
+                    "Acesso negado",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+                return; // Fecha o programa
+            }
+
+            //string usuarioLogado = args[1]; // Nome do usuário logado (ou outro dado)
+
+            dadosESTATICOS.UsuarioLogado = args[1];
+
+
             //Caminho e arquivo de banco de dados
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projEBD.sqlite");
 
             // Define o DataDirectory como o diretório do executável
             AppDomain.CurrentDomain.SetData("DataDirectory", AppDomain.CurrentDomain.BaseDirectory);
 
-            // Verificar se o arquivo do banco de dados existe
-            if (!File.Exists(dbPath))
-            {
-                // Se o banco não existir, criar o banco e as tabelas
-                CriarBancoDeDadosEIniciarTabelas();
-            }
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new verificandoVersao());
-
-            // Primeiro, abre o formulário de verificação
-            verificandoVersao formVerificandoVersao = new verificandoVersao();
-            formVerificandoVersao.ShowDialog(); // Aguarda o fechamento do formulário de verificação
-
-            // Após o fechamento da tela de verificação, abre o formulário de login
-            loginFormulario formLogin = new loginFormulario();
-
-            // Mostra o formulário de login como uma janela modal
-            if (formLogin.ShowDialog() == DialogResult.OK) // Supondo que você retorne OK no login bem-sucedido
-            {
-                // Se o login for bem-sucedido, fecha o login e abre o home
-                formLogin.Close();
-
-                Home formHome = new Home();
-                Application.Run(formHome); // Inicia o formulário principal
-            }
-            else
-            {
-                // Caso o login falhe, a aplicação pode ser encerrada ou algo mais pode ser feito
-                MessageBox.Show("Login falhou! A aplicação será encerrada.");
-                Environment.Exit(0);
-            }
-
-
-            /*
-            using (var verificandoVersao = new verificandoVersao())
-            {
-                // Exibe o primeiro formulário
-                if (verificandoVersao.ShowDialog() == DialogResult.OK)
-                {
-                    // Abre o próximo formulário Home somente após o fechamento do VerificandoVersao
-                    Application.Run(new Home());
-                }
-            }
-            */
-
+            Application.Run(new Home());
 
         }
 
+        /*
         public static void CriarBancoDeDadosEIniciarTabelas()
         {
             // Inicializa o contexto do banco de dados
@@ -118,5 +108,6 @@ namespace Projeto_EBD
                 }
             }
         }
+        */
     }
 }
