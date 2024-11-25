@@ -16,7 +16,7 @@ namespace Projeto_EBD.Controllers.Ferramentas
             string repositorio = $"Albatroxi/EBD_Update"; // Repositório correto no GitHub
             string caminhoDestino = $@"DBase/{dadosESTATICOS.UsuarioLogado}"; // Caminho do diretório onde o arquivo será armazenado
 
-            // Defina o token diretamente no código (não recomendado em produção)
+            // Token de acesso ao GitHub (não recomendado em produção)
             string tokenAcesso = "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";
 
             if (string.IsNullOrEmpty(tokenAcesso))
@@ -33,73 +33,60 @@ namespace Projeto_EBD.Controllers.Ferramentas
 
             try
             {
-                // Lê o arquivo em bytes
-                byte[] conteudoArquivo = File.ReadAllBytes(caminhoArquivo);
+                byte[] conteudoArquivo;
 
-                // Dividir o arquivo em partes menores (menores que 1 MB)
-                int tamanhoMaximoParte = 950_000; // 950 KB por parte
-                int partes = (int)Math.Ceiling((double)conteudoArquivo.Length / tamanhoMaximoParte);
-
-                string shaAnterior = null; // SHA do arquivo anterior
-                for (int i = 0; i < partes; i++)
+                // Lê o arquivo em partes para gerenciar memória, mas concatena antes do envio
+                using (var fileStream = new FileStream(caminhoArquivo, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    // Obtém a parte do arquivo
-                    int tamanhoParte = Math.Min(tamanhoMaximoParte, conteudoArquivo.Length - (i * tamanhoMaximoParte));
-                    byte[] parteAtual = new byte[tamanhoParte];
-                    Array.Copy(conteudoArquivo, i * tamanhoMaximoParte, parteAtual, 0, tamanhoParte);
-
-                    // Codifica a parte em Base64
-                    string conteudoBase64 = Convert.ToBase64String(parteAtual);
-
-                    // URL para o endpoint da API do GitHub
-                    string url = $"https://api.github.com/repos/{repositorio}/contents/{caminhoDestino}/{nomeArquivo}";
-
-                    using (var client = new HttpClient())
-                    {
-                        client.DefaultRequestHeaders.Add("User-Agent", "WindowsFormsApp");
-                        client.DefaultRequestHeaders.Add("Authorization", $"token {tokenAcesso}");
-
-                        // Verificar se o arquivo já existe para obter o SHA
-                        if (i == 0) // Apenas na primeira parte
-                        {
-                            var response = client.GetAsync(url).Result;
-                            if (response.IsSuccessStatusCode)
-                            {
-                                var existingFile = JsonConvert.DeserializeObject<dynamic>(response.Content.ReadAsStringAsync().Result);
-                                shaAnterior = existingFile?.sha; // SHA do arquivo existente
-                            }
-                        }
-
-                        // Corpo da requisição
-                        var requestBody = new
-                        {
-                            message = $"Enviando parte {i + 1}/{partes} do arquivo",
-                            content = conteudoBase64,
-                            branch = "main",
-                            sha = shaAnterior // Inclui o SHA se necessário
-                        };
-
-                        // Enviar a requisição PUT
-                        var jsonRequestBody = JsonConvert.SerializeObject(requestBody);
-                        var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
-                        var putResponse = client.PutAsync(url, content).Result;
-
-                        // Verificar a resposta
-                        if (putResponse.IsSuccessStatusCode)
-                        {
-                            var result = JsonConvert.DeserializeObject<dynamic>(putResponse.Content.ReadAsStringAsync().Result);
-                            shaAnterior = result?.content?.sha; // Atualiza o SHA
-                        }
-                        else
-                        {
-                            string errorDetails = putResponse.Content.ReadAsStringAsync().Result;
-                            MessageBox.Show($"Erro ao enviar parte {i + 1}: {putResponse.StatusCode}\n{errorDetails}");
-                            return;
-                        }
-                    }
+                    conteudoArquivo = new byte[fileStream.Length];
+                    fileStream.Read(conteudoArquivo, 0, conteudoArquivo.Length);
                 }
 
-                MessageBox.Show("Arquivo enviado com sucesso!", "Concluído");
+                // Codifica o conteúdo completo em Base64
+                string conteudoBase64 = Convert.ToBase64String(conteudoArquivo);
+
+                // URL para o endpoint da API do GitHub
+                string url = $"https://api.github.com/repos/{repositorio}/contents/{caminhoDestino}/{nomeArquivo}";
+
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("User-Agent", "WindowsFormsApp");
+                    client.DefaultRequestHeaders.Add("Authorization", $"token {tokenAcesso}");
+
+                    // Verifica se o arquivo já existe no repositório
+                    string shaAnterior = null;
+                    var response = client.GetAsync(url).Result;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var existingFile = JsonConvert.DeserializeObject<dynamic>(response.Content.ReadAsStringAsync().Result);
+                        shaAnterior = existingFile?.sha; // SHA do arquivo existente
+                    }
+
+                    // Cria o corpo da requisição
+                    var requestBody = new
+                    {
+                        message = "Adicionando ou atualizando arquivo via API",
+                        content = conteudoBase64,
+                        branch = "main",
+                        sha = shaAnterior // SHA do arquivo existente (para atualizações)
+                    };
+
+                    // Envia o arquivo em uma única requisição PUT
+                    var jsonRequestBody = JsonConvert.SerializeObject(requestBody);
+                    var content = new StringContent(jsonRequestBody, Encoding.UTF8, "application/json");
+                    var putResponse = client.PutAsync(url, content).Result;
+
+                    // Verifica a resposta
+                    if (putResponse.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Arquivo enviado com sucesso!", "Concluído");
+                    }
+                    else
+                    {
+                        string errorDetails = putResponse.Content.ReadAsStringAsync().Result;
+                        MessageBox.Show($"Erro ao enviar arquivo: {putResponse.StatusCode}\n{errorDetails}");
+                    }
+                }
             }
             catch (IOException ex)
             {
@@ -110,7 +97,5 @@ namespace Projeto_EBD.Controllers.Ferramentas
                 MessageBox.Show($"Erro: {ex.Message}");
             }
         }
-
-
     }
 }
