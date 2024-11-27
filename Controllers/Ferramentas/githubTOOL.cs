@@ -15,24 +15,49 @@ namespace Projeto_EBD.Controllers.Ferramentas
             string nomeArquivo = "projEBD.sqlite"; // Nome do arquivo no repositório
             string repositorio = $"Albatroxi/EBD_Update"; // Repositório correto no GitHub
             string caminhoDestino = $@"DBase/{dadosESTATICOS.UsuarioLogado}"; // Caminho do diretório onde o arquivo será armazenado
+            string urlToken = "https://www.dropbox.com/scl/fi/bp2a81ue3qo3lcc36rwl0/access.txt?rlkey=ocgy5y33laskktsz7an1nv95l&st=6o1q0of2&dl=1\r\n"; // URL onde o token está armazenado
 
-            // Token de acesso ao GitHub (não recomendado em produção)
-            string tokenAcesso = "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";
-
-            if (string.IsNullOrEmpty(tokenAcesso))
-            {
-                MessageBox.Show("Token de acesso ao GitHub não encontrado!");
-                return;
-            }
-
-            if (!File.Exists(caminhoArquivo))
-            {
-                MessageBox.Show("Arquivo não encontrado no caminho especificado.");
-                return;
-            }
+            string tokenAcesso = string.Empty;
 
             try
             {
+                // Obter o token de acesso do arquivo de texto
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("User-Agent", "WindowsFormsApp"); // Requerido pelo GitHub
+
+                    var responseToken = client.GetAsync(urlToken).Result;
+
+                    if (responseToken.IsSuccessStatusCode)
+                    {
+                        // Ler o conteúdo do arquivo que contém o token
+                        tokenAcesso = responseToken.Content.ReadAsStringAsync().Result.Trim();
+
+                        if (string.IsNullOrEmpty(tokenAcesso))
+                        {
+                            MessageBox.Show("Token de acesso não encontrado no arquivo!");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Erro ao obter o token. Código de status: {responseToken.StatusCode}");
+                        return;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(tokenAcesso))
+                {
+                    MessageBox.Show("Token de acesso ao GitHub não encontrado!");
+                    return;
+                }
+
+                if (!File.Exists(caminhoArquivo))
+                {
+                    MessageBox.Show("Arquivo não encontrado no caminho especificado.");
+                    return;
+                }
+
                 byte[] conteudoArquivo;
 
                 // Lê o arquivo em partes para gerenciar memória, mas concatena antes do envio
@@ -79,7 +104,7 @@ namespace Projeto_EBD.Controllers.Ferramentas
                     // Verifica a resposta
                     if (putResponse.IsSuccessStatusCode)
                     {
-                        MessageBox.Show("Arquivo enviado com sucesso!", "Concluído");
+                        MessageBox.Show("Nuvem atualizada!", "Até mais...");
                     }
                     else
                     {
@@ -97,5 +122,6 @@ namespace Projeto_EBD.Controllers.Ferramentas
                 MessageBox.Show($"Erro: {ex.Message}");
             }
         }
+
     }
 }

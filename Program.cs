@@ -16,14 +16,14 @@ namespace Projeto_EBD
         //static void Main(string[] args)
         static void Main(string[] args)
         {
-            /*
+            
             // Simulando os argumentos para teste (somente durante o desenvolvimento)
             if (args == null || args.Length == 0)
             {
                 // Apenas para depuração
                 args = new string[] { "projetoEBDStart", "eclesio" };
             }
-            */            
+                      
 
             arquivosMANAGER gFileManager = new arquivosMANAGER();
             gFileManager.ExcluirDocsDaPastaExecutavel();
