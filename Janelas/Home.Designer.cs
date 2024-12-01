@@ -37,6 +37,9 @@
             this.ListarALL = new System.Windows.Forms.TreeView();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.descriptRaiz = new System.Windows.Forms.Label();
+            this.igrejaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.agendamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cadastrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,7 +49,9 @@
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.categoriaToolStripMenuItem,
-            this.sermãoToolStripMenuItem});
+            this.sermãoToolStripMenuItem,
+            this.igrejaToolStripMenuItem,
+            this.agendamentosToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1014, 27);
@@ -68,7 +73,7 @@
             this.adicionarToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.adicionarToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.adicionarToolStripMenuItem.Name = "adicionarToolStripMenuItem";
-            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.adicionarToolStripMenuItem.Text = "Adicionar";
             this.adicionarToolStripMenuItem.Click += new System.EventHandler(this.adicionarToolStripMenuItem_Click);
             // 
@@ -121,6 +126,27 @@
             this.descriptRaiz.Text = "Aqui você poderá selecionar a categoria e, acessar todos os assuntos vinculados.";
             this.descriptRaiz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // igrejaToolStripMenuItem
+            // 
+            this.igrejaToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cadastrarToolStripMenuItem});
+            this.igrejaToolStripMenuItem.Name = "igrejaToolStripMenuItem";
+            this.igrejaToolStripMenuItem.Size = new System.Drawing.Size(55, 23);
+            this.igrejaToolStripMenuItem.Text = "Igreja";
+            // 
+            // agendamentosToolStripMenuItem
+            // 
+            this.agendamentosToolStripMenuItem.Name = "agendamentosToolStripMenuItem";
+            this.agendamentosToolStripMenuItem.Size = new System.Drawing.Size(114, 23);
+            this.agendamentosToolStripMenuItem.Text = "Agendamentos";
+            // 
+            // cadastrarToolStripMenuItem
+            // 
+            this.cadastrarToolStripMenuItem.Name = "cadastrarToolStripMenuItem";
+            this.cadastrarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.cadastrarToolStripMenuItem.Text = "Cadastrar";
+            this.cadastrarToolStripMenuItem.Click += new System.EventHandler(this.cadastrarToolStripMenuItem_Click);
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,5 +180,8 @@
         private System.Windows.Forms.TreeView ListarALL;
         private System.Windows.Forms.Label lbTitulo;
         private System.Windows.Forms.Label descriptRaiz;
+        private System.Windows.Forms.ToolStripMenuItem igrejaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem agendamentosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cadastrarToolStripMenuItem;
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas.Categorias;
+using Projeto_EBD.Janelas.Igrejas;
 using Projeto_EBD.Janelas.Sermaos;
 using System;
 using System.Data;
@@ -219,5 +220,32 @@ namespace Projeto_EBD.Janelas
             }
         }
 
+        private void cadastrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Criar instância do formulário AddIgreja
+                AdicionarIgreja addIgrejaForm = new AdicionarIgreja
+                {
+                    StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
+                };
+
+                // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
+                //addSermForm.SermaoAdicionado += () =>
+                //{
+                // Recarregar as categorias no ComboBox
+                //    CarregarTreeView();
+                //};
+
+                // Mostrar o formulário AddCat como modal
+                addIgrejaForm.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                // Tratamento genérico para outras exceções
+                MessageBox.Show($"Ocorreu um erro inesperado ao iniciar o cadastro de uma nova igreja..\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
     }
 }
