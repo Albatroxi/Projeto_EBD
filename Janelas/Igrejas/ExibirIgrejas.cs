@@ -27,7 +27,21 @@ namespace Projeto_EBD.Janelas.Igrejas
 
         private void cbIgrejas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            // Verifica se algo foi selecionado no ComboBox
+            if (cbIgrejas.SelectedValue != null)
+            {
+                // Obtém o ID e o Nome da igreja selecionada
+                var idSelecionado = cbIgrejas.SelectedValue.ToString(); // ID da igreja
+                var igrejaSelecionada = cbIgrejas.Text; // Nome da igreja
+
+                // Exibe no Console
+                Console.WriteLine($"ID Selecionado: {idSelecionado}");
+                Console.WriteLine($"Nome Selecionado: {igrejaSelecionada}");
+            }
+            else
+            {
+                Console.WriteLine("Nenhuma igreja selecionada.");
+            }
         }
     }
 }
