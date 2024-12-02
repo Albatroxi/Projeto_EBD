@@ -1,4 +1,6 @@
-﻿using Projeto_EBD.DBContexto;
+﻿using Projeto_EBD.Controllers.Categoria;
+using Projeto_EBD.Controllers.Igrejas;
+using Projeto_EBD.DBContexto;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,9 @@ namespace Projeto_EBD.Janelas.Igrejas
 {
     public partial class AdicionarIgreja : Form
     {
+        igrejCRUD commIGREJA = new igrejCRUD();
+        // Definir o evento
+        public event Action IgrejaAdicionada;
         public AdicionarIgreja()
         {
             InitializeComponent();
@@ -115,6 +120,7 @@ namespace Projeto_EBD.Janelas.Igrejas
 
             string telLider = txTel.Text;
 
+            /*
             // Exibir os valores no console
             Console.WriteLine($"Nome da igreja: {nomIgreja}");
             Console.WriteLine($"Endereço da igreja: {eIgreja}");
@@ -123,6 +129,22 @@ namespace Projeto_EBD.Janelas.Igrejas
             Console.WriteLine($"Cidade da igreja: {cidIgreja}");
             Console.WriteLine($"Tipo da igreja: {tipIgreja}");
             Console.WriteLine($"Telefone da liderança: {telLider}");
+            */
+
+            
+            bool resultado = commIGREJA.adicionarIgreja(nomIgreja, eIgreja, bIgreja, estIgreja, cidIgreja, tipIgreja, telLider);
+
+            if (resultado)
+            {
+                // Categoria adicionada com sucesso
+                //MessageBox.Show("Igreja cadastrada com sucesso.");
+                MessageBox.Show("Igreja adicionada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Após a inserção, disparar o evento
+                //IgrejaAdicionada?.Invoke();
+
+                this.Close();
+            }
 
         }
     }

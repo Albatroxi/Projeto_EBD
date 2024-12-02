@@ -247,5 +247,33 @@ namespace Projeto_EBD.Janelas
 
             }
         }
+
+        private void igrejasCadastradasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Criar instância do formulário AddIgreja
+                ExibirIgrejas exibIgrejaForm = new ExibirIgrejas
+                {
+                    StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
+                };
+
+                // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
+                //addSermForm.SermaoAdicionado += () =>
+                //{
+                // Recarregar as categorias no ComboBox
+                //    CarregarTreeView();
+                //};
+
+                // Mostrar o formulário ExibirIgrejas como modal
+                exibIgrejaForm.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                // Tratamento genérico para outras exceções
+                MessageBox.Show($"Ocorreu um erro inesperado ao iniciar a exibição das igrejas cadastradas.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
     }
 }
