@@ -23,24 +23,49 @@ namespace Projeto_EBD.Janelas.Igrejas
 
             //Carregar as igrejas
             commIGREJATOOL.CarregarIgrejasCadastradas(cbIgrejas);
+
+            // Inicializa as labels como ocultas
+            this.label2.Visible = false;
+            this.label3.Visible = false;
+            this.label4.Visible = false;
+            this.label5.Visible = false;
+            this.label6.Visible = false;
+            this.label7.Visible = false;
+            this.label8.Visible = false;
+            this.label9.Visible = false;
+            this.label10.Visible = false;
+            this.label11.Visible = false;
         }
 
         private void cbIgrejas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Verifica se algo foi selecionado no ComboBox
-            if (cbIgrejas.SelectedValue != null)
-            {
-                // Obtém o ID e o Nome da igreja selecionada
-                var idSelecionado = cbIgrejas.SelectedValue.ToString(); // ID da igreja
-                var igrejaSelecionada = cbIgrejas.Text; // Nome da igreja
+            Model.Igrejas.Igrejas igrejaSelecionada = (Model.Igrejas.Igrejas)cbIgrejas.SelectedItem;
+            int idIgreja = igrejaSelecionada.id;
 
-                // Exibe no Console
-                Console.WriteLine($"ID Selecionado: {idSelecionado}");
-                Console.WriteLine($"Nome Selecionado: {igrejaSelecionada}");
+            if (cbIgrejas.SelectedItem != null)
+            {
+                
+                // Usar o idIgreja conforme necessário
+
+                this.label2.Visible = true;
+                this.label3.Text = igrejaSelecionada.iendereco;
+                this.label3.Visible = true;
+                this.label4.Visible = true;
+                this.label5.Text = igrejaSelecionada.ibairro;
+                this.label5.Visible = true;
+                this.label6.Visible = true;
+                this.label7.Text = igrejaSelecionada.icidade;
+                this.label7.Visible = true;
+                this.label8.Visible = true;
+                this.label9.Text = igrejaSelecionada.iestado;
+                this.label9.Visible = true;
+                this.label10.Visible = true;
+                this.label11.Text = igrejaSelecionada.itelefone;
+                this.label11.Visible = true;
             }
             else
             {
-                Console.WriteLine("Nenhuma igreja selecionada.");
+                MessageBox.Show("Nenhuma igreja selecionada.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
