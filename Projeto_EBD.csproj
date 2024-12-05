@@ -101,6 +101,12 @@
     <Compile Include="Janelas\Categorias\AdicionarCatg.Designer.cs">
       <DependentUpon>AdicionarCatg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Janelas\Categorias\ExcluirCatg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Janelas\Categorias\ExcluirCatg.Designer.cs">
+      <DependentUpon>ExcluirCatg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Janelas\Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Categorias\AdicionarCatg.resx">
       <DependentUpon>AdicionarCatg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Janelas\Categorias\ExcluirCatg.resx">
+      <DependentUpon>ExcluirCatg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
