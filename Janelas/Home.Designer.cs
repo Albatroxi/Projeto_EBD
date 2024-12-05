@@ -36,11 +36,13 @@
             this.adicionarSermaoStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.igrejaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.igrejasCadastradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.agendamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ListarALL = new System.Windows.Forms.TreeView();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.descriptRaiz = new System.Windows.Forms.Label();
-            this.igrejasCadastradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.agendarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +76,7 @@
             this.adicionarToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.adicionarToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.adicionarToolStripMenuItem.Name = "adicionarToolStripMenuItem";
-            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
+            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.adicionarToolStripMenuItem.Text = "Adicionar";
             this.adicionarToolStripMenuItem.Click += new System.EventHandler(this.adicionarToolStripMenuItem_Click);
             // 
@@ -89,7 +91,7 @@
             // adicionarSermaoStripMenuItem1
             // 
             this.adicionarSermaoStripMenuItem1.Name = "adicionarSermaoStripMenuItem1";
-            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(135, 24);
+            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(180, 24);
             this.adicionarSermaoStripMenuItem1.Text = "Adicionar";
             this.adicionarSermaoStripMenuItem1.Click += new System.EventHandler(this.adicionarSermaoStripMenuItem1_Click);
             // 
@@ -105,12 +107,22 @@
             // cadastrarToolStripMenuItem
             // 
             this.cadastrarToolStripMenuItem.Name = "cadastrarToolStripMenuItem";
-            this.cadastrarToolStripMenuItem.Size = new System.Drawing.Size(197, 24);
+            this.cadastrarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.cadastrarToolStripMenuItem.Text = "Cadastrar";
             this.cadastrarToolStripMenuItem.Click += new System.EventHandler(this.cadastrarToolStripMenuItem_Click);
             // 
+            // igrejasCadastradasToolStripMenuItem
+            // 
+            this.igrejasCadastradasToolStripMenuItem.Name = "igrejasCadastradasToolStripMenuItem";
+            this.igrejasCadastradasToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.igrejasCadastradasToolStripMenuItem.Text = "Consultar";
+            this.igrejasCadastradasToolStripMenuItem.Click += new System.EventHandler(this.igrejasCadastradasToolStripMenuItem_Click);
+            // 
             // agendamentosToolStripMenuItem
             // 
+            this.agendamentosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.agendarToolStripMenuItem,
+            this.consultarToolStripMenuItem});
             this.agendamentosToolStripMenuItem.Name = "agendamentosToolStripMenuItem";
             this.agendamentosToolStripMenuItem.Size = new System.Drawing.Size(114, 23);
             this.agendamentosToolStripMenuItem.Text = "Agendamentos";
@@ -149,12 +161,18 @@
             this.descriptRaiz.Text = "Aqui você poderá selecionar a categoria e, acessar todos os assuntos vinculados.";
             this.descriptRaiz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // igrejasCadastradasToolStripMenuItem
+            // agendarToolStripMenuItem
             // 
-            this.igrejasCadastradasToolStripMenuItem.Name = "igrejasCadastradasToolStripMenuItem";
-            this.igrejasCadastradasToolStripMenuItem.Size = new System.Drawing.Size(197, 24);
-            this.igrejasCadastradasToolStripMenuItem.Text = "Igrejas Cadastradas";
-            this.igrejasCadastradasToolStripMenuItem.Click += new System.EventHandler(this.igrejasCadastradasToolStripMenuItem_Click);
+            this.agendarToolStripMenuItem.Name = "agendarToolStripMenuItem";
+            this.agendarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.agendarToolStripMenuItem.Text = "Agendar";
+            this.agendarToolStripMenuItem.Click += new System.EventHandler(this.agendarToolStripMenuItem_Click);
+            // 
+            // consultarToolStripMenuItem
+            // 
+            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.consultarToolStripMenuItem.Text = "Consultar";
             // 
             // Home
             // 
@@ -193,5 +211,7 @@
         private System.Windows.Forms.ToolStripMenuItem agendamentosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastrarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem igrejasCadastradasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem agendarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
     }
 }

@@ -42,5 +42,30 @@ namespace Projeto_EBD.Controllers.Categoria
 
             return false;
         }
+
+        public void CarregarCategorias(ComboBox cbCategorias)
+        {
+            try
+            {
+                using (var context = new DBContexto.dbContexto())
+                {
+                    var categorias = context.Categorias.ToList();
+                    // Criar um item em branco (ou "placeholder") e adicioná-lo à lista
+                    categorias.Insert(0, new Model.Categoria.Categorias { id = 0, nome = "Selecione uma Categoria" });
+
+                    // Preencha o ComboBox com os nomes das igreja
+                    cbCategorias.DataSource = categorias;
+                    cbCategorias.DisplayMember = "nome"; // Exibe o nome da igreja
+                    cbCategorias.ValueMember = "id"; // O valor será o Id da igreja
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // Tratamento genérico para outras exceções
+                MessageBox.Show($"Ocorreu um erro inesperado ao carregar as informações de Categorias.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
     }
 }

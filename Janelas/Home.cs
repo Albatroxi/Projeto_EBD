@@ -1,5 +1,6 @@
 ﻿using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.DBContexto;
+using Projeto_EBD.Janelas.Agendamentos;
 using Projeto_EBD.Janelas.Categorias;
 using Projeto_EBD.Janelas.Igrejas;
 using Projeto_EBD.Janelas.Sermaos;
@@ -272,6 +273,34 @@ namespace Projeto_EBD.Janelas
             {
                 // Tratamento genérico para outras exceções
                 MessageBox.Show($"Ocorreu um erro inesperado ao iniciar a exibição das igrejas cadastradas.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
+        private void agendarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Criar instância do formulário AddIgreja
+                AgendarPregacao agendaPregaForm = new AgendarPregacao
+                {
+                    StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
+                };
+
+                // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
+                //addSermForm.SermaoAdicionado += () =>
+                //{
+                // Recarregar as categorias no ComboBox
+                //    CarregarTreeView();
+                //};
+
+                // Mostrar o formulário ExibirIgrejas como modal
+                agendaPregaForm.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                // Tratamento genérico para outras exceções
+                MessageBox.Show($"Ocorreu um erro inesperado ao iniciar o agendamento de pregação.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }

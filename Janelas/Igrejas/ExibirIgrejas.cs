@@ -16,13 +16,13 @@ namespace Projeto_EBD.Janelas.Igrejas
 {
     public partial class ExibirIgrejas : Form
     {
-        igrejTOOL commIGREJATOOL = new igrejTOOL();
+        igrejCRUD commIGREJACRUD = new igrejCRUD();
         public ExibirIgrejas()
         {
             InitializeComponent();
 
             //Carregar as igrejas
-            commIGREJATOOL.CarregarIgrejasCadastradas(cbIgrejas);
+            commIGREJACRUD.CarregarIgrejasCadastradas(cbIgrejas);
 
             // Inicializa as labels como ocultas
             this.label2.Visible = false;

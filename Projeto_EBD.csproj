@@ -89,6 +89,12 @@
     <Compile Include="Controllers\Sermao\sermCRUD.cs" />
     <Compile Include="Controllers\Sermao\sermTOOL.cs" />
     <Compile Include="DBContexto\dbContexto.cs" />
+    <Compile Include="Janelas\Agendamentos\AgendarPregacao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Janelas\Agendamentos\AgendarPregacao.Designer.cs">
+      <DependentUpon>AgendarPregacao.cs</DependentUpon>
+    </Compile>
     <Compile Include="Janelas\Categorias\AdicionarCatg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +130,9 @@
     <Compile Include="Model\Sermoes\Sermoes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Janelas\Agendamentos\AgendarPregacao.resx">
+      <DependentUpon>AgendarPregacao.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Categorias\AdicionarCatg.resx">
       <DependentUpon>AdicionarCatg.cs</DependentUpon>
     </EmbeddedResource>

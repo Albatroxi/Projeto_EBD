@@ -83,5 +83,30 @@ namespace Projeto_EBD.Controllers.Sermao
             return false;
         }
 
+        public void CarregarSermoes(ComboBox cbSermoes)
+        {
+            try
+            {
+                using (var context = new DBContexto.dbContexto())
+                {
+                    var sermoes = context.Sermoes.ToList();
+                    // Criar um item em branco (ou "placeholder") e adicioná-lo à lista
+                    sermoes.Insert(0, new Model.Sermoes.Sermoes { id = 0, tema = "Selecione um sermão" });
+
+                    // Preencha o ComboBox com os nomes das igreja
+                    cbSermoes.DataSource = sermoes;
+                    cbSermoes.DisplayMember = "tema"; // Exibe o nome da igreja
+                    cbSermoes.ValueMember = "id"; // O valor será o Id da igreja
+
+                }
+            }
+            catch (Exception ex)
+            {
+                // Tratamento genérico para outras exceções
+                MessageBox.Show($"Ocorreu um erro inesperado ao carregar as informações do sermão.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
     }
 }
