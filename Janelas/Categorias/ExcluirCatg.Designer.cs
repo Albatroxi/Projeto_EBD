@@ -79,6 +79,7 @@
             this.btExcCat.TabIndex = 5;
             this.btExcCat.Text = "Excluir";
             this.btExcCat.UseVisualStyleBackColor = false;
+            this.btExcCat.Click += new System.EventHandler(this.btExcCat_Click);
             // 
             // ExcluirCatg
             // 

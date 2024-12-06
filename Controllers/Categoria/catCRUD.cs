@@ -67,5 +67,40 @@ namespace Projeto_EBD.Controllers.Categoria
 
             }
         }
+
+        public bool ExcluirCategoria(int idCategoria)
+        {
+            try
+            {
+                using (var context = new DBContexto.dbContexto())
+                {
+                    // Localiza a categoria pelo ID
+                    var categoria = context.Categorias.FirstOrDefault(c => c.id == idCategoria);
+                    if (categoria != null)
+                    {
+                        // Remove a categoria
+                        context.Categorias.Remove(categoria);
+
+                        // Salva as alterações no banco de dados
+                        context.SaveChanges();
+
+                        MessageBox.Show("Categoria excluída com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        return true;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Categoria não encontrada. Verifique o ID.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao excluir a categoria.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return false;
+        }
+
     }
 }

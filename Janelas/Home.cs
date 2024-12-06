@@ -316,11 +316,11 @@ namespace Projeto_EBD.Janelas
                 };
 
                 // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
-                //addSermForm.SermaoAdicionado += () =>
-                //{
+                excluiCatgForm.CategoriaExcluida += () =>
+                {
                 // Recarregar as categorias no ComboBox
-                //    CarregarTreeView();
-                //};
+                    CarregarTreeView();
+                };
 
                 // Mostrar o formulário ExibirIgrejas como modal
                 excluiCatgForm.ShowDialog(this);
