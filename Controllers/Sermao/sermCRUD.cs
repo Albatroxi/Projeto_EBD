@@ -1,6 +1,8 @@
-﻿using Projeto_EBD.DBContexto;
+﻿using Projeto_EBD.Controllers.Categoria;
+using Projeto_EBD.DBContexto;
 using Projeto_EBD.Model.Sermoes;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,6 +11,7 @@ namespace Projeto_EBD.Controllers.Sermao
 {
     public class sermCRUD
     {
+        catCRUD commCATEGORIA = new catCRUD();
         public bool addSermao(string tema, string camArquivo, int catID)
         {
             using (var context = new dbContexto())
@@ -107,6 +110,43 @@ namespace Projeto_EBD.Controllers.Sermao
 
             }
         }
+
+        public bool BuscarSermoesPorCategoria(int catID)
+        {
+            using (var context = new dbContexto())
+            {
+                try
+                {
+                    // Busca os sermões relacionados ao ID da categoria
+                    var sermoes = context.Sermoes
+                        .Where(s => s.id_categoria == catID)
+                        .ToList();
+
+                    if (sermoes.Any())
+                    {
+                        MessageBox.Show($"Foram encontrados {sermoes.Count} sermões para a categoria selecionada.\n"
+                            + "Não é permitido a exclusão de uma categoria contendo um ou mais sermões.\n"
+                            + "Revise o conteúdo da categoria e realize a exclusão.",
+                            "Impossível excluir!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        return false; // Não permite excluir a categoria, pois existem sermões associados.
+                    }
+                    else
+                    {
+                        // Nenhum sermão encontrado, permitir exclusão.
+                        commCATEGORIA.ExcluirCategoria(catID);
+                        return true; // Exclusão bem-sucedida.
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao buscar sermões: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false; // Falha ao buscar ou excluir.
+                }
+            }
+        }
+
+
 
     }
 }

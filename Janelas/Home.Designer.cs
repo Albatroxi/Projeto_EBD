@@ -32,8 +32,10 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.categoriaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adicionarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excluirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sermãoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adicionarSermaoStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.excluirToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.igrejaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.igrejasCadastradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,7 +45,6 @@
             this.ListarALL = new System.Windows.Forms.TreeView();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.descriptRaiz = new System.Windows.Forms.Label();
-            this.excluirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,10 +83,18 @@
             this.adicionarToolStripMenuItem.Text = "Adicionar";
             this.adicionarToolStripMenuItem.Click += new System.EventHandler(this.adicionarToolStripMenuItem_Click);
             // 
+            // excluirToolStripMenuItem
+            // 
+            this.excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
+            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.excluirToolStripMenuItem.Text = "Excluir";
+            this.excluirToolStripMenuItem.Click += new System.EventHandler(this.excluirToolStripMenuItem_Click);
+            // 
             // sermãoToolStripMenuItem
             // 
             this.sermãoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adicionarSermaoStripMenuItem1});
+            this.adicionarSermaoStripMenuItem1,
+            this.excluirToolStripMenuItem1});
             this.sermãoToolStripMenuItem.Name = "sermãoToolStripMenuItem";
             this.sermãoToolStripMenuItem.Size = new System.Drawing.Size(67, 23);
             this.sermãoToolStripMenuItem.Text = "Sermão";
@@ -93,9 +102,16 @@
             // adicionarSermaoStripMenuItem1
             // 
             this.adicionarSermaoStripMenuItem1.Name = "adicionarSermaoStripMenuItem1";
-            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(135, 24);
+            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(180, 24);
             this.adicionarSermaoStripMenuItem1.Text = "Adicionar";
             this.adicionarSermaoStripMenuItem1.Click += new System.EventHandler(this.adicionarSermaoStripMenuItem1_Click);
+            // 
+            // excluirToolStripMenuItem1
+            // 
+            this.excluirToolStripMenuItem1.Name = "excluirToolStripMenuItem1";
+            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(180, 24);
+            this.excluirToolStripMenuItem1.Text = "Excluir";
+            this.excluirToolStripMenuItem1.Click += new System.EventHandler(this.excluirToolStripMenuItem1_Click);
             // 
             // igrejaToolStripMenuItem
             // 
@@ -176,13 +192,6 @@
             this.descriptRaiz.Text = "Aqui você poderá selecionar a categoria e, acessar todos os assuntos vinculados.";
             this.descriptRaiz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // excluirToolStripMenuItem
-            // 
-            this.excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
-            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.excluirToolStripMenuItem.Text = "Excluir";
-            this.excluirToolStripMenuItem.Click += new System.EventHandler(this.excluirToolStripMenuItem_Click);
-            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -223,5 +232,6 @@
         private System.Windows.Forms.ToolStripMenuItem agendarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
     }
 }

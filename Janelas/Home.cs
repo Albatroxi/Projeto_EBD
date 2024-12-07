@@ -332,5 +332,33 @@ namespace Projeto_EBD.Janelas
 
             }
         }
+
+        private void excluirToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Criar instância do formulário AddIgreja
+                ExcluirSerm excluiSermForm = new ExcluirSerm
+                {
+                    StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
+                };
+
+                // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
+                excluiSermForm.SermaoExcluido += () =>
+                {
+                    // Recarregar as categorias no ComboBox
+                    CarregarTreeView();
+                };
+
+                // Mostrar o formulário ExibirIgrejas como modal
+                excluiSermForm.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                // Tratamento genérico para outras exceções
+                MessageBox.Show($"Ocorreu um erro inesperado ao iniciar a exclusão de sermões.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
     }
 }

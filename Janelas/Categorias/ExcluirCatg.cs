@@ -1,4 +1,5 @@
 ﻿using Projeto_EBD.Controllers.Categoria;
+using Projeto_EBD.Controllers.Sermao;
 using System;
 using System.Windows.Forms;
 
@@ -7,6 +8,7 @@ namespace Projeto_EBD.Janelas.Categorias
     public partial class ExcluirCatg : Form
     {
         catCRUD commCATEGCRUD = new catCRUD();
+        sermCRUD commSERMAOCRUD = new sermCRUD();
 
         public event Action CategoriaExcluida;
         public ExcluirCatg()
@@ -39,8 +41,7 @@ namespace Projeto_EBD.Janelas.Categorias
                 // Obtém o ID da categoria selecionada
                 int idCategoriaSelecionada = (int)cbCat_exc.SelectedValue;
 
-                // Chama o método para excluir a categoria
-                bool resultado = commCATEGCRUD.ExcluirCategoria(idCategoriaSelecionada);
+                var resultado = commSERMAOCRUD.BuscarSermoesPorCategoria(idCategoriaSelecionada);
 
                 if (resultado)
                 {
