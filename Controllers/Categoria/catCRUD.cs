@@ -43,6 +43,39 @@ namespace Projeto_EBD.Controllers.Categoria
             return false;
         }
 
+        public Model.Categoria.Categorias BuscarCategoriaPorNome(string catNome)
+        {
+            try
+            {
+                // Verifica se o nome é válido
+                if (!string.IsNullOrWhiteSpace(catNome))
+                {
+                    // Remove espaços extras do início e do fim do nome informado
+                    string nomeNormalizado = catNome.Trim().ToLower();
+
+                    using (var context = new dbContexto())
+                    {
+                        // Realiza a busca no banco, normalizando o nome das categorias
+                        var categoria = context.Categorias
+                            .FirstOrDefault(c => c.nome.Trim().ToLower() == nomeNormalizado);
+
+                        return categoria;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("O nome da categoria não pode estar vazio.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao buscar a categoria: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return null; // Retorna null caso ocorra algum problema
+        }
+
+
         public void CarregarCategorias(ComboBox cbCategorias)
         {
             try

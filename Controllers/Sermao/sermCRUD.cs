@@ -150,7 +150,7 @@ namespace Projeto_EBD.Controllers.Sermao
             }
         }
 
-        public void CarregarSermoesNoTreeView(int categoriaId, TreeView treeView)
+        public bool CarregarSermoesNoTreeView(int categoriaId, TreeView treeView)
         {
             try
             {
@@ -184,18 +184,24 @@ namespace Projeto_EBD.Controllers.Sermao
                             };
                             treeView.Nodes.Add(sermaoNode);
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Nenhum sermão encontrado para a categoria selecionada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        // Retorna true quando resultados são encontrados e adicionados
+                        return true;
                     }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Erro ao carregar sermões: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Retorna false em caso de exceção
+                return false;
             }
+
+            // Retorna false se nenhum sermão for encontrado
+            return false;
         }
+
 
         public bool ExcluirSermao(int sermaoId)
         {

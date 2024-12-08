@@ -27,18 +27,43 @@ namespace Projeto_EBD.Janelas.Categorias
 
         private void insCat_Click(object sender, EventArgs e)
         {
-
-            bool resultado = commCATEG.addCategoria(lbnvCat.Text);
-
-            if (resultado)
+            try
             {
-                // Categoria adicionada com sucesso
-                MessageBox.Show("Categoria adicionada com sucesso.");
+                // Verifica se o nome é válido
+                if (!string.IsNullOrWhiteSpace(lbnvCat.Text))
+                {
+                    var catEncontrada = commCATEG.BuscarCategoriaPorNome(lbnvCat.Text);
 
-                // Após a inserção, disparar o evento
-                CategoriaAdicionada?.Invoke();
+                    if(catEncontrada != null)
+                    {
+                        MessageBox.Show($"A categoria: {catEncontrada.nome} Já existe!",
+                    "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        bool resultado = commCATEG.addCategoria(lbnvCat.Text);
 
-                this.Close();
+                        if (resultado)
+                        {
+                            // Categoria adicionada com sucesso
+                            MessageBox.Show("Categoria adicionada com sucesso.");
+
+                            // Após a inserção, disparar o evento
+                            CategoriaAdicionada?.Invoke();
+
+                            this.Close();
+                        }
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("O nome da categoria não pode estar vazio.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

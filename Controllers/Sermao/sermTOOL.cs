@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Projeto_EBD.DBContexto;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Projeto_EBD.Controllers.Sermao
@@ -71,7 +73,7 @@ namespace Projeto_EBD.Controllers.Sermao
             }
         }
 
-        public void ColetarIdsMarcados(TreeNode node, List<int> idsParaExcluir)
+        public void ColetarIdsMarcadoseExclui(TreeNode node, List<int> idsParaExcluir)
         {
             // Verifica se o nó está marcado e possui um ID associado no campo Tag
             if (node.Checked && node.Tag is int sermaoId)
@@ -82,7 +84,61 @@ namespace Projeto_EBD.Controllers.Sermao
             // Itera recursivamente pelos nós filhos
             foreach (TreeNode childNode in node.Nodes)
             {
-                ColetarIdsMarcados(childNode, idsParaExcluir);
+                ColetarIdsMarcadoseExclui(childNode, idsParaExcluir);
+            }
+        }
+
+        public void CarregarSermoesNoTreeView(TreeView treeView)
+        {
+            try
+            {
+                using (var context = new dbContexto())
+                {
+                    var sermaos = context.Sermoes
+                        .Join(
+                            context.Categorias,
+                            sermao => sermao.id_categoria,
+                            categoria => categoria.id,
+                            (sermao, categoria) => new
+                            {
+                                sermao.id,
+                                sermao.tema,
+                                categoria.nome
+                            })
+                        .ToList();
+
+                    treeView.Nodes.Clear();
+
+                    var categorias = sermaos
+                        .GroupBy(s => s.nome)
+                        .ToList();
+
+                    foreach (var categoriaGrupo in categorias)
+                    {
+                        TreeNode categoriaNode = new TreeNode
+                        {
+                            Text = categoriaGrupo.Key,
+                            Tag = categoriaGrupo.Key
+                        };
+
+                        foreach (var sermao in categoriaGrupo)
+                        {
+                            TreeNode sermaoNode = new TreeNode
+                            {
+                                Text = sermao.tema,
+                                Tag = sermao.id
+                            };
+
+                            categoriaNode.Nodes.Add(sermaoNode);
+                        }
+
+                        treeView.Nodes.Add(categoriaNode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar sermões: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

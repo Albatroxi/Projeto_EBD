@@ -1,8 +1,10 @@
 ﻿using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.Controllers.Ferramentas.Procedimentos;
+using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Projeto_EBD
@@ -28,6 +30,7 @@ namespace Projeto_EBD
             arquivosMANAGER gFileManager = new arquivosMANAGER();
             gFileManager.ExcluirDocsDaPastaExecutavel();
             gFileManager = null;  // Agora o objeto pode ser coletado, se não houver mais referências
+            //CriarBancoDeDadosEIniciarTabelas();
 
             string usuarioLogado = args[1]; // Nome do usuário logado (ou outro dado)
 
@@ -68,39 +71,83 @@ namespace Projeto_EBD
             // Inicializa o contexto do banco de dados
             using (var context = new dbContexto())
             {
-                // Verificar se o banco de dados está acessível
                 try
                 {
-                    context.Database.Initialize(force: true); // Cria o banco e as tabelas, se necessário
+                    // Inicializa o banco de dados e cria tabelas, se necessário
+                    context.Database.Initialize(force: true);
 
                     // Verificar se a tabela 'Categorias' existe
-                    var tableCategoria = context.Database.SqlQuery<int>(
+                    var tableCategorias = context.Database.SqlQuery<int>(
                         "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='Categorias';"
                     ).FirstOrDefault() > 0;
 
-                    // Se a tabela não existir, cria a tabela
-                    if (!tableCategoria)
+                    if (!tableCategorias)
                     {
                         context.Database.ExecuteSqlCommand(
-                            @"CREATE TABLE Categorias (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT NOT NULL);"
+                            @"CREATE TABLE Categorias (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                        nome TEXT NOT NULL
+                    );"
                         );
                     }
 
-
-                    // Verificar se a tabela 'Categorias' existe
+                    // Verificar se a tabela 'Sermoes' existe
                     var tableSermoes = context.Database.SqlQuery<int>(
                         "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='Sermoes';"
                     ).FirstOrDefault() > 0;
 
-                    // Se a tabela não existir, cria a tabela
                     if (!tableSermoes)
                     {
                         context.Database.ExecuteSqlCommand(
-                            @"CREATE TABLE Sermoes (id INTEGER PRIMARY KEY AUTOINCREMENT, tema TEXT NOT NULL, arquivo BLOB NOT NULL, id_categoria INTEGER NOT NULL);"
+                            @"CREATE TABLE Sermoes (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+                        tema TEXT NOT NULL, 
+                        arquivo BLOB NOT NULL, 
+                        id_categoria INTEGER NOT NULL
+                    );"
                         );
                     }
 
-                    //MessageBox.Show("Banco de dados e tabelas criados com sucesso.");
+                    // Verificar se a tabela 'Igrejas' existe
+                    var tableIgrejas = context.Database.SqlQuery<int>(
+                        "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='Igrejas';"
+                    ).FirstOrDefault() > 0;
+
+                    if (!tableIgrejas)
+                    {
+                        context.Database.ExecuteSqlCommand(
+                            @"CREATE TABLE Igrejas (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        inome TEXT NOT NULL,
+                        iendereco TEXT NOT NULL,
+                        ibairro TEXT NOT NULL,
+                        iestado TEXT NOT NULL,
+                        icidade TEXT NOT NULL,
+                        itipo TEXT NOT NULL,
+                        itelefone TEXT NOT NULL
+                    );"
+                        );
+                    }
+
+                    // Verificar se a tabela 'Agendas' existe
+                    var tableAgendas = context.Database.SqlQuery<int>(
+                        "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='Agendas';"
+                    ).FirstOrDefault() > 0;
+
+                    if (!tableAgendas)
+                    {
+                        context.Database.ExecuteSqlCommand(
+                            @"CREATE TABLE Agendas (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        igreja_id INTEGER NOT NULL,
+                        data DATETIME NOT NULL,
+                        categoria_id INTEGER NOT NULL,
+                        sermao_id INTEGER NOT NULL
+                    );"
+                        );
+                    }
+
+                    // MessageBox.Show("Banco de dados e tabelas criados com sucesso.");
                 }
                 catch (Exception ex)
                 {

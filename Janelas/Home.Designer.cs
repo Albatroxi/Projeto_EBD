@@ -79,14 +79,14 @@
             this.adicionarToolStripMenuItem.BackColor = System.Drawing.Color.White;
             this.adicionarToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.adicionarToolStripMenuItem.Name = "adicionarToolStripMenuItem";
-            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.adicionarToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.adicionarToolStripMenuItem.Text = "Adicionar";
             this.adicionarToolStripMenuItem.Click += new System.EventHandler(this.adicionarToolStripMenuItem_Click);
             // 
             // excluirToolStripMenuItem
             // 
             this.excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
-            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
+            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(135, 24);
             this.excluirToolStripMenuItem.Text = "Excluir";
             this.excluirToolStripMenuItem.Click += new System.EventHandler(this.excluirToolStripMenuItem_Click);
             // 
@@ -102,14 +102,14 @@
             // adicionarSermaoStripMenuItem1
             // 
             this.adicionarSermaoStripMenuItem1.Name = "adicionarSermaoStripMenuItem1";
-            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(180, 24);
+            this.adicionarSermaoStripMenuItem1.Size = new System.Drawing.Size(135, 24);
             this.adicionarSermaoStripMenuItem1.Text = "Adicionar";
             this.adicionarSermaoStripMenuItem1.Click += new System.EventHandler(this.adicionarSermaoStripMenuItem1_Click);
             // 
             // excluirToolStripMenuItem1
             // 
             this.excluirToolStripMenuItem1.Name = "excluirToolStripMenuItem1";
-            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(180, 24);
+            this.excluirToolStripMenuItem1.Size = new System.Drawing.Size(135, 24);
             this.excluirToolStripMenuItem1.Text = "Excluir";
             this.excluirToolStripMenuItem1.Click += new System.EventHandler(this.excluirToolStripMenuItem1_Click);
             // 

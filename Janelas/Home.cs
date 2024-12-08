@@ -284,7 +284,7 @@ namespace Projeto_EBD.Janelas
             try
             {
                 // Criar instância do formulário AddIgreja
-                AgendarPregacao agendaPregaForm = new AgendarPregacao
+                AgendarSerm agendaSermForm = new AgendarSerm
                 {
                     StartPosition = FormStartPosition.CenterParent // Centralizar no formulário pai
                 };
@@ -297,12 +297,12 @@ namespace Projeto_EBD.Janelas
                 //};
 
                 // Mostrar o formulário ExibirIgrejas como modal
-                agendaPregaForm.ShowDialog(this);
+                agendaSermForm.ShowDialog(this);
             }
             catch (Exception ex)
             {
                 // Tratamento genérico para outras exceções
-                MessageBox.Show($"Ocorreu um erro inesperado ao iniciar o agendamento de pregação.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Ocorreu um erro inesperado ao iniciar o agendamento de sermão.\nDetalhes: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }

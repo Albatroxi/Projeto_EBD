@@ -77,6 +77,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\Agendamento\agendaCRUD.cs" />
+    <Compile Include="Controllers\Agendamento\AgendaTOOL.cs" />
     <Compile Include="Controllers\Categoria\catCRUD.cs" />
     <Compile Include="Controllers\Categoria\catTOOL.cs" />
     <Compile Include="Controllers\Ferramentas\dadosESTATICOS.cs" />
@@ -89,11 +91,11 @@
     <Compile Include="Controllers\Sermao\sermCRUD.cs" />
     <Compile Include="Controllers\Sermao\sermTOOL.cs" />
     <Compile Include="DBContexto\dbContexto.cs" />
-    <Compile Include="Janelas\Agendamentos\AgendarPregacao.cs">
+    <Compile Include="Janelas\Agendamentos\AgendarSerm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Janelas\Agendamentos\AgendarPregacao.Designer.cs">
-      <DependentUpon>AgendarPregacao.cs</DependentUpon>
+    <Compile Include="Janelas\Agendamentos\AgendarSerm.Designer.cs">
+      <DependentUpon>AgendarSerm.cs</DependentUpon>
     </Compile>
     <Compile Include="Janelas\Categorias\AdicionarCatg.cs">
       <SubType>Form</SubType>
@@ -137,13 +139,14 @@
     <Compile Include="Janelas\Sermaos\ExcluirSerm.Designer.cs">
       <DependentUpon>ExcluirSerm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Agenda\Agendas.cs" />
     <Compile Include="Model\Categoria\Categorias.cs" />
     <Compile Include="Model\Igrejas\Igrejas.cs" />
     <Compile Include="Model\Sermoes\Sermoes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Janelas\Agendamentos\AgendarPregacao.resx">
-      <DependentUpon>AgendarPregacao.cs</DependentUpon>
+    <EmbeddedResource Include="Janelas\Agendamentos\AgendarSerm.resx">
+      <DependentUpon>AgendarSerm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Janelas\Categorias\AdicionarCatg.resx">
       <DependentUpon>AdicionarCatg.cs</DependentUpon>

@@ -38,73 +38,28 @@ namespace Projeto_EBD.Janelas.Sermaos
             // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
             SermaoExcluido += () =>
             {
-                // Recarregar as categorias no ComboBox
-                CarregarSermoesNoTreeView(treeView1);
+                // Recarregar as sermoes no treeview por categoria selecionada
+                commSERMTOOL.CarregarSermoesNoTreeView(treeView1);
             };
-        }
-
-        public void CarregarSermoesNoTreeView(TreeView treeView)
-        {
-            try
-            {
-                using (var context = new dbContexto())
-                {
-                    var sermaos = context.Sermoes
-                        .Join(
-                            context.Categorias,
-                            sermao => sermao.id_categoria,
-                            categoria => categoria.id,
-                            (sermao, categoria) => new
-                            {
-                                sermao.id,
-                                sermao.tema,
-                                categoria.nome
-                            })
-                        .ToList();
-
-                    treeView.Nodes.Clear();
-
-                    var categorias = sermaos
-                        .GroupBy(s => s.nome)
-                        .ToList();
-
-                    foreach (var categoriaGrupo in categorias)
-                    {
-                        TreeNode categoriaNode = new TreeNode
-                        {
-                            Text = categoriaGrupo.Key,
-                            Tag = categoriaGrupo.Key
-                        };
-
-                        foreach (var sermao in categoriaGrupo)
-                        {
-                            TreeNode sermaoNode = new TreeNode
-                            {
-                                Text = sermao.tema,
-                                Tag = sermao.id
-                            };
-
-                            categoriaNode.Nodes.Add(sermaoNode);
-                        }
-
-                        treeView.Nodes.Add(categoriaNode);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao carregar sermões: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void cbCat_excSerm_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbCat_excSerm.SelectedValue is int categoriaId && categoriaId > 0)
             {
+                // Limpa os nós existentes antes de carregar novos
+                treeView1.Nodes.Clear();
+
                 // Chama o método para carregar os sermões no TreeView
-                commSERMCRUD.CarregarSermoesNoTreeView(categoriaId, treeView1);
+                var resultado = commSERMCRUD.CarregarSermoesNoTreeView(categoriaId, treeView1);
+
+                if (!resultado)
+                {
+                    MessageBox.Show("Nenhum sermão encontrado para a categoria selecionada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
+
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -134,7 +89,7 @@ namespace Projeto_EBD.Janelas.Sermaos
             // Itera pelos nós do TreeView para capturar os IDs marcados
             foreach (TreeNode node in treeView1.Nodes)
             {
-                commSERMTOOL.ColetarIdsMarcados(node, idsParaExcluir);
+                commSERMTOOL.ColetarIdsMarcadoseExclui(node, idsParaExcluir);
             }
 
             // Verifica se há IDs para excluir
