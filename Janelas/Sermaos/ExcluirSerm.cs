@@ -111,22 +111,6 @@ namespace Projeto_EBD.Janelas.Sermaos
 
         }
 
-        private void treeView1_AfterCheck(object sender, TreeViewEventArgs e)
-        {
-            // Verifica se o nó foi marcado ou desmarcado
-            /*
-            if (e.Node.Checked)
-            {
-                // Exibe a mensagem quando o nó for marcado
-                MessageBox.Show($"Sermão '{e.Node.Text}' foi marcado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                // Exibe a mensagem quando o nó for desmarcado
-                MessageBox.Show($"Sermão '{e.Node.Text}' foi desmarcado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            */
-        }
 
         private void btExcCatCancela_Click(object sender, EventArgs e)
         {
