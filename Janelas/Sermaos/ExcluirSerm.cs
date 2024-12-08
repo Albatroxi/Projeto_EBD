@@ -33,7 +33,7 @@ namespace Projeto_EBD.Janelas.Sermaos
 
             // Configura o evento AfterCheck para o TreeView
             treeView1.CheckBoxes = true;
-            treeView1.AfterCheck += treeView1_AfterCheck;
+            //treeView1.AfterCheck += treeView1_AfterCheck;
 
             // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
             SermaoExcluido += () =>
