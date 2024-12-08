@@ -45,6 +45,7 @@ namespace Projeto_EBD.Janelas.Categorias
 
                 if (resultado)
                 {
+                    commCATEGCRUD.ExcluirCategoria(idCategoriaSelecionada);
                     // Atualiza o ComboBox após exclusão
                     commCATEGCRUD.CarregarCategorias(cbCat_exc);
 

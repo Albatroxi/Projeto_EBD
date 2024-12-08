@@ -3,9 +3,13 @@ using Projeto_EBD.DBContexto;
 using Projeto_EBD.Model.Sermoes;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using ComboBox = System.Windows.Forms.ComboBox;
+using TreeView = System.Windows.Forms.TreeView;
 
 namespace Projeto_EBD.Controllers.Sermao
 {
@@ -134,7 +138,7 @@ namespace Projeto_EBD.Controllers.Sermao
                     else
                     {
                         // Nenhum sermão encontrado, permitir exclusão.
-                        commCATEGORIA.ExcluirCategoria(catID);
+                        //commCATEGORIA.ExcluirCategoria(catID);
                         return true; // Exclusão bem-sucedida.
                     }
                 }
@@ -146,6 +150,146 @@ namespace Projeto_EBD.Controllers.Sermao
             }
         }
 
+        public void CarregarSermoesNoTreeView(int categoriaId, TreeView treeView)
+        {
+            try
+            {
+                using (var context = new dbContexto())
+                {
+                    var resultado = context.Sermoes
+                        .Where(s => s.id_categoria == categoriaId)
+                        .Join(
+                            context.Categorias,
+                            sermao => sermao.id_categoria,
+                            categoria => categoria.id,
+                            (sermao, categoria) => new
+                            {
+                                sermao.id,      // ID do sermão
+                                sermao.tema,    // Tema do sermão
+                                CategoriaNome = categoria.nome // Nome da categoria
+                            }
+                        )
+                        .ToList();
+
+                    treeView.Nodes.Clear();
+
+                    if (resultado.Any())
+                    {
+                        foreach (var item in resultado)
+                        {
+                            var sermaoNode = new TreeNode(item.tema)
+                            {
+                                Tag = item.id, // Armazena o ID do sermão
+                                Checked = false
+                            };
+                            treeView.Nodes.Add(sermaoNode);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nenhum sermão encontrado para a categoria selecionada.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar sermões: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public bool ExcluirSermao(int sermaoId)
+        {
+            using (var context = new dbContexto())
+            {
+                try
+                {
+                    // Busca o sermão pelo ID
+                    var sermao = context.Sermoes.FirstOrDefault(s => s.id == sermaoId);
+
+                    if (sermao == null)
+                    {
+                        //MessageBox.Show("Sermão não encontrado.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+
+                    // Remove o sermão do contexto
+                    context.Sermoes.Remove(sermao);
+
+                    // Salva as alterações no banco
+                    context.SaveChanges();
+
+                    //MessageBox.Show("Sermão excluído com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao excluir o sermão: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+        }
+
+        public void CarregarSermoesNoTreeView(TreeView treeView)
+        {
+            try
+            {
+                using (var context = new dbContexto())
+                {
+                    // Obter os sermões e as categorias
+                    var sermaos = context.Sermoes
+                        .Join(
+                            context.Categorias,
+                            sermao => sermao.id_categoria,
+                            categoria => categoria.id,
+                            (sermao, categoria) => new
+                            {
+                                sermao.id,      // ID do sermão
+                                sermao.tema,    // Tema do sermão
+                                categoria.nome  // Nome da categoria
+                            }
+                        )
+                        .ToList();
+
+                    // Limpa o TreeView antes de popular
+                    treeView.Nodes.Clear();
+
+                    // Adicionar sermões ao TreeView, agrupando por categoria
+                    var categorias = sermaos
+                        .GroupBy(s => s.nome) // Agrupar por nome da categoria
+                        .ToList();
+
+                    foreach (var categoriaGrupo in categorias)
+                    {
+                        // Criar um nó para a categoria
+                        TreeNode categoriaNode = new TreeNode
+                        {
+                            Text = categoriaGrupo.Key, // Nome da categoria
+                            Tag = categoriaGrupo.Key   // Armazenar o nome da categoria (ou ID, se necessário)
+                        };
+
+                        // Adicionar os sermões da categoria como subnós
+                        foreach (var sermao in categoriaGrupo)
+                        {
+                            TreeNode sermaoNode = new TreeNode
+                            {
+                                Text = sermao.tema, // Tema do sermão
+                                Tag = sermao.id     // ID do sermão
+                            };
+
+                            // Adicionar o sermão como subnó
+                            categoriaNode.Nodes.Add(sermaoNode);
+                        }
+
+                        // Adicionar o nó da categoria ao TreeView
+                        treeView.Nodes.Add(categoriaNode);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar sermões: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
 
     }

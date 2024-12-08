@@ -1,4 +1,5 @@
 ﻿using Projeto_EBD.Controllers.Ferramentas;
+using Projeto_EBD.Controllers.Sermao;
 using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas.Agendamentos;
 using Projeto_EBD.Janelas.Categorias;
@@ -14,6 +15,7 @@ namespace Projeto_EBD.Janelas
 {
     public partial class Home : Form
     {
+        sermCRUD commSERMCRUD = new sermCRUD();
 
         private visualizadorTOOL commVISUTOOL; // Apenas a declaração
         string tempFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Guid.NewGuid() + ".doc");
