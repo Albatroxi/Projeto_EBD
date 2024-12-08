@@ -104,20 +104,21 @@ namespace Projeto_EBD.Janelas.Agendamentos
             Model.Categoria.Categorias categoriaSelecionada = (Model.Categoria.Categorias)cbCat_agendSerm.SelectedItem;
             int idCategoria = categoriaSelecionada.id;
 
-            // Capturar a data selecionada no MonthCalendar
+            // Capturar a data selecionada no MonthCalendar e formatá-la
             DateTime dataSelecionada = dataAgendaSerm.SelectionStart;
 
             // Lista para armazenar os IDs selecionados
-            List<int> idsSermaosSelecionados = new List<int>();
+            //List<int> idsSermaosSelecionados = new List<int>();
+            int sermaoId = 0; // Inicializa o ID com um valor padrão
 
             // Itera pelos nós do TreeView para capturar os IDs marcados
             foreach (TreeNode node in treeView_agendSerm.Nodes)
             {
-                commAGENDATOOL.ColetarIdsMarcados(node, idsSermaosSelecionados);
+                commAGENDATOOL.ColetarIdMarcado(node, ref sermaoId);
             }
 
             // Se não houver sermões selecionados
-            if (idsSermaosSelecionados.Count == 0)
+            if (sermaoId == 0)
             {
                 MessageBox.Show(
                     "É necessário informar o sermão que será aplicado.",
@@ -158,8 +159,8 @@ namespace Projeto_EBD.Janelas.Agendamentos
                 return; // Impede que o código continue caso a categoria não seja selecionada
             }
 
-            // Chama a função AddAgendamento, passando a lista de IDs selecionados
-            var resultado = commAGENDACRUD.AddAgendamento(idIgreja, dataSelecionada, idCategoria, idsSermaosSelecionados);
+            // Chama o método AddAgendamento passando a data correta
+            var resultado = commAGENDACRUD.AddAgendamento(idIgreja, dataSelecionada, idCategoria, sermaoId);
 
             if (resultado == true)
             {

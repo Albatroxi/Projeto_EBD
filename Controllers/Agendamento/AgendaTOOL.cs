@@ -9,20 +9,22 @@ namespace Projeto_EBD.Controllers.Agendamento
 {
     public class AgendaTOOL
     {
-        public void ColetarIdsMarcados(TreeNode node, List<int> idsSelecionados)
+        public void ColetarIdMarcado(TreeNode node, ref int sermaoId)
         {
             // Verifica se o nó está marcado e possui um ID associado no campo Tag
-            if (node.Checked && node.Tag is int sermaoId)
+            if (node.Checked && node.Tag is int idSelecionado)
             {
-                idsSelecionados.Add(sermaoId);
+                // Atribui o ID do sermão ao parâmetro, caso seja marcado
+                sermaoId = idSelecionado;
             }
 
             // Itera recursivamente pelos nós filhos
             foreach (TreeNode childNode in node.Nodes)
             {
-                ColetarIdsMarcados(childNode, idsSelecionados);
+                ColetarIdMarcado(childNode, ref sermaoId);
             }
         }
+
 
         public bool VerificarSeDataEhAtual(DateTime dataSelecionada)
         {

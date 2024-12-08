@@ -1,4 +1,5 @@
-﻿using Projeto_EBD.Controllers.Ferramentas;
+﻿using Projeto_EBD.Controllers.Agendamento;
+using Projeto_EBD.Controllers.Ferramentas;
 using Projeto_EBD.Controllers.Sermao;
 using Projeto_EBD.DBContexto;
 using Projeto_EBD.Janelas.Agendamentos;
@@ -15,7 +16,7 @@ namespace Projeto_EBD.Janelas
 {
     public partial class Home : Form
     {
-        sermCRUD commSERMCRUD = new sermCRUD();
+        agendaCRUD commAGENDACRUD = new agendaCRUD();
 
         private visualizadorTOOL commVISUTOOL; // Apenas a declaração
         string tempFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, Guid.NewGuid() + ".doc");
@@ -29,6 +30,7 @@ namespace Projeto_EBD.Janelas
             CarregarTreeView();
             this.FormClosing += Home_FormClosing;
 
+            commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_1, agendaData_1, agendaTema_1);
 
             // Inicializa o visualizadorTOOL com a instância atual do formulário
             commVISUTOOL = new visualizadorTOOL(this);

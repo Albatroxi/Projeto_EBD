@@ -45,8 +45,8 @@
             this.ListarALL = new System.Windows.Forms.TreeView();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.descriptRaiz = new System.Windows.Forms.Label();
-            this.agendaIgreja1 = new System.Windows.Forms.Label();
-            this.agendaData1 = new System.Windows.Forms.Label();
+            this.agendaIgreja_1 = new System.Windows.Forms.Label();
+            this.agendaData_1 = new System.Windows.Forms.Label();
             this.agendaDataCidadeBairro_1 = new System.Windows.Forms.Label();
             this.agendaTema_1 = new System.Windows.Forms.Label();
             this.agendaSermao_1 = new System.Windows.Forms.Label();
@@ -154,14 +154,14 @@
             // agendarToolStripMenuItem
             // 
             this.agendarToolStripMenuItem.Name = "agendarToolStripMenuItem";
-            this.agendarToolStripMenuItem.Size = new System.Drawing.Size(137, 24);
+            this.agendarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.agendarToolStripMenuItem.Text = "Agendar";
             this.agendarToolStripMenuItem.Click += new System.EventHandler(this.agendarToolStripMenuItem_Click);
             // 
             // consultarToolStripMenuItem
             // 
             this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(137, 24);
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.consultarToolStripMenuItem.Text = "Consultar";
             // 
             // ListarALL
@@ -198,23 +198,23 @@
             this.descriptRaiz.Text = "Aqui você poderá selecionar a categoria e, acessar todos os assuntos vinculados.";
             this.descriptRaiz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // agendaIgreja1
+            // agendaIgreja_1
             // 
-            this.agendaIgreja1.AutoSize = true;
-            this.agendaIgreja1.Location = new System.Drawing.Point(12, 114);
-            this.agendaIgreja1.Name = "agendaIgreja1";
-            this.agendaIgreja1.Size = new System.Drawing.Size(57, 13);
-            this.agendaIgreja1.TabIndex = 16;
-            this.agendaIgreja1.Text = "IGREJA_1";
+            this.agendaIgreja_1.AutoSize = true;
+            this.agendaIgreja_1.Location = new System.Drawing.Point(12, 114);
+            this.agendaIgreja_1.Name = "agendaIgreja_1";
+            this.agendaIgreja_1.Size = new System.Drawing.Size(57, 13);
+            this.agendaIgreja_1.TabIndex = 16;
+            this.agendaIgreja_1.Text = "IGREJA_1";
             // 
-            // agendaData1
+            // agendaData_1
             // 
-            this.agendaData1.AutoSize = true;
-            this.agendaData1.Location = new System.Drawing.Point(13, 131);
-            this.agendaData1.Name = "agendaData1";
-            this.agendaData1.Size = new System.Drawing.Size(48, 13);
-            this.agendaData1.TabIndex = 17;
-            this.agendaData1.Text = "DATA_1";
+            this.agendaData_1.AutoSize = true;
+            this.agendaData_1.Location = new System.Drawing.Point(13, 131);
+            this.agendaData_1.Name = "agendaData_1";
+            this.agendaData_1.Size = new System.Drawing.Size(48, 13);
+            this.agendaData_1.TabIndex = 17;
+            this.agendaData_1.Text = "DATA_1";
             // 
             // agendaDataCidadeBairro_1
             // 
@@ -266,8 +266,8 @@
             this.Controls.Add(this.agendaSermao_1);
             this.Controls.Add(this.agendaTema_1);
             this.Controls.Add(this.agendaDataCidadeBairro_1);
-            this.Controls.Add(this.agendaData1);
-            this.Controls.Add(this.agendaIgreja1);
+            this.Controls.Add(this.agendaData_1);
+            this.Controls.Add(this.agendaIgreja_1);
             this.Controls.Add(this.descriptRaiz);
             this.Controls.Add(this.lbTitulo);
             this.Controls.Add(this.ListarALL);
@@ -301,8 +301,8 @@
         private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
-        private System.Windows.Forms.Label agendaIgreja1;
-        private System.Windows.Forms.Label agendaData1;
+        private System.Windows.Forms.Label agendaIgreja_1;
+        private System.Windows.Forms.Label agendaData_1;
         private System.Windows.Forms.Label agendaDataCidadeBairro_1;
         private System.Windows.Forms.Label agendaTema_1;
         private System.Windows.Forms.Label agendaSermao_1;
