@@ -89,11 +89,9 @@ namespace Projeto_EBD.Controllers.Agendamento
                     // Obter a igreja associada ao agendamento
                     var igreja = context.Igrejas.FirstOrDefault(i => i.id == agendamento.igreja_id);
 
-                    var igrejaAgenda = context.Agendas.FirstOrDefault(i => i.id == agendamento.igreja_id);
+                    var igrejaAgenda = context.Agendas.FirstOrDefault(i => i.igreja_id == agendamento.igreja_id);
 
-                    //var igrejaAgendaCategoria = context.Categorias.FirstOrDefault(i => i.id == igrejaAgenda.categoria_id);
-
-                    //var igrejaAgendaSermao = context.Sermoes.FirstOrDefault(i => i.id == igrejaAgenda.sermao_id);
+                    var igrejaAgendaCategoria = context.Categorias.FirstOrDefault(i => i.id == agendamento.igreja_id);
 
                     if (igreja != null)
                     {
@@ -101,11 +99,11 @@ namespace Projeto_EBD.Controllers.Agendamento
                         agendaIgreja_1.Visible = true;
                         agendaIgreja_1.Text = igreja.inome;
 
-                        //agendaData_1.Visible = true;
-                        //agendaData_1.Text = igrejaAgenda.data.ToString("dd/MM/yyyy"); // Formato de data (exemplo: 08/12/2024)
+                        agendaData_1.Visible = true;
+                        agendaData_1.Text = igrejaAgenda.data.ToString("dd/MM/yyyy"); // Formato de data (exemplo: 08/12/2024)
 
-                        //agendaTema_1.Visible = true;
-                        //agendaTema_1.Text = igrejaAgendaCategoria.nome;
+                        agendaTema_1.Visible = true;
+                        agendaTema_1.Text = igrejaAgendaCategoria.nome;
 
                     }
                     else
