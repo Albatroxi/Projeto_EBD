@@ -18,29 +18,21 @@ namespace Projeto_EBD
         //static void Main(string[] args)
         static void Main(string[] args)
         {
-            
             // Simulando os argumentos para teste (somente durante o desenvolvimento)
+            /*
             if (args == null || args.Length == 0)
             {
                 // Apenas para depuração
                 args = new string[] { "projetoEBDStart", "eclesio" };
             }
-                      
-
-            arquivosMANAGER gFileManager = new arquivosMANAGER();
-            gFileManager.ExcluirDocsDaPastaExecutavel();
-            gFileManager = null;  // Agora o objeto pode ser coletado, se não houver mais referências
-            //CriarBancoDeDadosEIniciarTabelas();
-
-            string usuarioLogado = args[1]; // Nome do usuário logado (ou outro dado)
-
+            */
 
             // Verifica se os argumentos foram passados corretamente
             if (args == null || args.Length < 2 || args[0] != "projetoEBDStart")
             {
                 MessageBox.Show(
                     "Este programa deve ser iniciado pelo launcher.\n\n" +
-                    "Inicie o programa através do launcher ou forneça os argumentos necessários.",
+                    "Inicie o programa através do launcher: Projeto_EBD_Launcher.",
                     "Acesso negado",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
@@ -48,12 +40,12 @@ namespace Projeto_EBD
                 return; // Fecha o programa
             }
 
-            //string usuarioLogado = args[1]; // Nome do usuário logado (ou outro dado)
+            // Agora que sabemos que os argumentos são válidos, podemos acessar o usuário logado
+            string usuarioLogado = args[1]; // Nome do usuário logado (ou outro dado)
 
-            dadosESTATICOS.UsuarioLogado = args[1];
+            dadosESTATICOS.UsuarioLogado = usuarioLogado;
 
-
-            //Caminho e arquivo de banco de dados
+            // Caminho e arquivo de banco de dados
             string dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "projEBD.sqlite");
 
             // Define o DataDirectory como o diretório do executável
@@ -62,8 +54,8 @@ namespace Projeto_EBD
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Home());
-
         }
+
 
         /*
         public static void CriarBancoDeDadosEIniciarTabelas()
