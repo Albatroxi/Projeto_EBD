@@ -164,6 +164,10 @@ namespace Projeto_EBD.Janelas.Agendamentos
 
             if (resultado == true)
             {
+
+                // Após a inserção, disparar o evento
+                SermaoAgendado?.Invoke();
+
                 MessageBox.Show("Agendamento adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Limpar os campos após o sucesso

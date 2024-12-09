@@ -197,6 +197,7 @@
   <ItemGroup>
     <Content Include="iconEBD.ico" />
     <Content Include="Imagens\biblia.gif" />
+    <None Include="Resources\IGREJA_EVANG.jpg" />
     <None Include="Resources\biblia.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

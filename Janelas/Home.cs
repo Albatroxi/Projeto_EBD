@@ -30,7 +30,30 @@ namespace Projeto_EBD.Janelas
             CarregarTreeView();
             this.FormClosing += Home_FormClosing;
 
-            commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_1, agendaData_1, agendaTema_1);
+            agendaIgreja_1.Visible = false;
+            agendaIgreja_2.Visible = false;
+            agendaIgreja_3.Visible = false;
+
+            agendaData_1.Visible = false;
+            agendaData_2.Visible = false;
+            agendaData_3.Visible = false;
+
+            agendaTema_1.Visible = false;
+            agendaTema_2.Visible = false;
+            agendaTema_3.Visible = false;
+
+            agendaSermao_1.Visible = false;
+            agendaSermao_2.Visible = false;
+            agendaSermao_3.Visible = false;
+
+            agendaEstCidadeBairro_1.Visible = false;
+            agendaEstCidadeBairro_2.Visible = false;
+            agendaEstCidadeBairro_3.Visible = false;
+
+            commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_1, agendaData_1, agendaTema_1, agendaSermao_1, agendaEstCidadeBairro_1, 0);
+            commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_2, agendaData_2, agendaTema_2, agendaSermao_2, agendaEstCidadeBairro_2, 1);
+            commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_3, agendaData_3, agendaTema_3, agendaSermao_3, agendaEstCidadeBairro_3, 2);
+
 
             // Inicializa o visualizadorTOOL com a instância atual do formulário
             commVISUTOOL = new visualizadorTOOL(this);
@@ -107,6 +130,17 @@ namespace Projeto_EBD.Janelas
 
         }
 
+        // Função para resetar as labels
+        public void ResetarLabels(params Label[] labels)
+        {
+            foreach (var label in labels)
+            {
+                label.Visible = false; // Ocultar a label
+                label.Text = string.Empty; // Limpar o texto
+            }
+        }
+
+
         private void CarregarTreeView()
         {
             using (var context = new dbContexto())
@@ -154,12 +188,7 @@ namespace Projeto_EBD.Janelas
 
         private void cbCategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //var categoriaSelecionada = cbCategoria.SelectedItem as Model.Categoria.Categorias; // Categoria é o tipo da sua classe
 
-            //if (categoriaSelecionada.id != 0)
-            //{
-            //    MessageBox.Show($"Categoria: {categoriaSelecionada.nome}, ID: {categoriaSelecionada.id}");
-            //}
         }
 
         private void adicionarSermaoStripMenuItem1_Click(object sender, EventArgs e)
@@ -292,11 +321,22 @@ namespace Projeto_EBD.Janelas
                 };
 
                 // Assinar o evento para atualizar o ComboBox quando a categoria for adicionada
-                //addSermForm.SermaoAdicionado += () =>
-                //{
-                // Recarregar as categorias no ComboBox
-                //    CarregarTreeView();
-                //};
+                agendaSermForm.SermaoAgendado += () =>
+                {
+                    //Recarregar as labels de agendamentos
+                    ResetarLabels(
+                        agendaIgreja_1, agendaIgreja_2, agendaIgreja_3,
+                        agendaData_1, agendaData_2, agendaData_3,
+                        agendaTema_1, agendaTema_2, agendaTema_3,
+                        agendaSermao_1, agendaSermao_2, agendaSermao_3,
+                        agendaEstCidadeBairro_1, agendaEstCidadeBairro_2, agendaEstCidadeBairro_3
+                        );
+
+                    commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_1, agendaData_1, agendaTema_1, agendaSermao_1, agendaEstCidadeBairro_1, 0);
+                    commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_2, agendaData_2, agendaTema_2, agendaSermao_2, agendaEstCidadeBairro_2, 1);
+                    commAGENDACRUD.CarregarInformacoesAgendamento(agendaIgreja_3, agendaData_3, agendaTema_3, agendaSermao_3, agendaEstCidadeBairro_3, 2);
+
+                };
 
                 // Mostrar o formulário ExibirIgrejas como modal
                 agendaSermForm.ShowDialog(this);

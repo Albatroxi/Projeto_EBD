@@ -41,16 +41,25 @@
             this.igrejasCadastradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.agendamentosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.agendarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ListarALL = new System.Windows.Forms.TreeView();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.descriptRaiz = new System.Windows.Forms.Label();
             this.agendaIgreja_1 = new System.Windows.Forms.Label();
             this.agendaData_1 = new System.Windows.Forms.Label();
-            this.agendaDataCidadeBairro_1 = new System.Windows.Forms.Label();
+            this.agendaEstCidadeBairro_1 = new System.Windows.Forms.Label();
             this.agendaTema_1 = new System.Windows.Forms.Label();
             this.agendaSermao_1 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.agendaSermao_2 = new System.Windows.Forms.Label();
+            this.agendaTema_2 = new System.Windows.Forms.Label();
+            this.agendaEstCidadeBairro_2 = new System.Windows.Forms.Label();
+            this.agendaData_2 = new System.Windows.Forms.Label();
+            this.agendaIgreja_2 = new System.Windows.Forms.Label();
+            this.agendaSermao_3 = new System.Windows.Forms.Label();
+            this.agendaTema_3 = new System.Windows.Forms.Label();
+            this.agendaEstCidadeBairro_3 = new System.Windows.Forms.Label();
+            this.agendaData_3 = new System.Windows.Forms.Label();
+            this.agendaIgreja_3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -145,8 +154,7 @@
             // agendamentosToolStripMenuItem
             // 
             this.agendamentosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.agendarToolStripMenuItem,
-            this.consultarToolStripMenuItem});
+            this.agendarToolStripMenuItem});
             this.agendamentosToolStripMenuItem.Name = "agendamentosToolStripMenuItem";
             this.agendamentosToolStripMenuItem.Size = new System.Drawing.Size(114, 23);
             this.agendamentosToolStripMenuItem.Text = "Agendamentos";
@@ -157,12 +165,6 @@
             this.agendarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.agendarToolStripMenuItem.Text = "Agendar";
             this.agendarToolStripMenuItem.Click += new System.EventHandler(this.agendarToolStripMenuItem_Click);
-            // 
-            // consultarToolStripMenuItem
-            // 
-            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
-            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
-            this.consultarToolStripMenuItem.Text = "Consultar";
             // 
             // ListarALL
             // 
@@ -216,14 +218,14 @@
             this.agendaData_1.TabIndex = 17;
             this.agendaData_1.Text = "DATA_1";
             // 
-            // agendaDataCidadeBairro_1
+            // agendaEstCidadeBairro_1
             // 
-            this.agendaDataCidadeBairro_1.AutoSize = true;
-            this.agendaDataCidadeBairro_1.Location = new System.Drawing.Point(12, 181);
-            this.agendaDataCidadeBairro_1.Name = "agendaDataCidadeBairro_1";
-            this.agendaDataCidadeBairro_1.Size = new System.Drawing.Size(162, 13);
-            this.agendaDataCidadeBairro_1.TabIndex = 18;
-            this.agendaDataCidadeBairro_1.Text = "ESTADO - CIDADE - BAIRRO_1";
+            this.agendaEstCidadeBairro_1.AutoSize = true;
+            this.agendaEstCidadeBairro_1.Location = new System.Drawing.Point(12, 181);
+            this.agendaEstCidadeBairro_1.Name = "agendaEstCidadeBairro_1";
+            this.agendaEstCidadeBairro_1.Size = new System.Drawing.Size(162, 13);
+            this.agendaEstCidadeBairro_1.TabIndex = 18;
+            this.agendaEstCidadeBairro_1.Text = "ESTADO - CIDADE - BAIRRO_1";
             // 
             // agendaTema_1
             // 
@@ -254,6 +256,96 @@
             this.label1.TabIndex = 21;
             this.label1.Text = "Agendamentos";
             // 
+            // agendaSermao_2
+            // 
+            this.agendaSermao_2.AutoSize = true;
+            this.agendaSermao_2.Location = new System.Drawing.Point(66, 277);
+            this.agendaSermao_2.Name = "agendaSermao_2";
+            this.agendaSermao_2.Size = new System.Drawing.Size(65, 13);
+            this.agendaSermao_2.TabIndex = 26;
+            this.agendaSermao_2.Text = "SERMAO_2";
+            // 
+            // agendaTema_2
+            // 
+            this.agendaTema_2.AutoSize = true;
+            this.agendaTema_2.Location = new System.Drawing.Point(66, 260);
+            this.agendaTema_2.Name = "agendaTema_2";
+            this.agendaTema_2.Size = new System.Drawing.Size(49, 13);
+            this.agendaTema_2.TabIndex = 25;
+            this.agendaTema_2.Text = "TEMA_2";
+            // 
+            // agendaEstCidadeBairro_2
+            // 
+            this.agendaEstCidadeBairro_2.AutoSize = true;
+            this.agendaEstCidadeBairro_2.Location = new System.Drawing.Point(65, 293);
+            this.agendaEstCidadeBairro_2.Name = "agendaEstCidadeBairro_2";
+            this.agendaEstCidadeBairro_2.Size = new System.Drawing.Size(162, 13);
+            this.agendaEstCidadeBairro_2.TabIndex = 24;
+            this.agendaEstCidadeBairro_2.Text = "ESTADO - CIDADE - BAIRRO_2";
+            // 
+            // agendaData_2
+            // 
+            this.agendaData_2.AutoSize = true;
+            this.agendaData_2.Location = new System.Drawing.Point(66, 243);
+            this.agendaData_2.Name = "agendaData_2";
+            this.agendaData_2.Size = new System.Drawing.Size(48, 13);
+            this.agendaData_2.TabIndex = 23;
+            this.agendaData_2.Text = "DATA_2";
+            // 
+            // agendaIgreja_2
+            // 
+            this.agendaIgreja_2.AutoSize = true;
+            this.agendaIgreja_2.Location = new System.Drawing.Point(65, 226);
+            this.agendaIgreja_2.Name = "agendaIgreja_2";
+            this.agendaIgreja_2.Size = new System.Drawing.Size(57, 13);
+            this.agendaIgreja_2.TabIndex = 22;
+            this.agendaIgreja_2.Text = "IGREJA_2";
+            // 
+            // agendaSermao_3
+            // 
+            this.agendaSermao_3.AutoSize = true;
+            this.agendaSermao_3.Location = new System.Drawing.Point(13, 390);
+            this.agendaSermao_3.Name = "agendaSermao_3";
+            this.agendaSermao_3.Size = new System.Drawing.Size(65, 13);
+            this.agendaSermao_3.TabIndex = 31;
+            this.agendaSermao_3.Text = "SERMAO_3";
+            // 
+            // agendaTema_3
+            // 
+            this.agendaTema_3.AutoSize = true;
+            this.agendaTema_3.Location = new System.Drawing.Point(13, 373);
+            this.agendaTema_3.Name = "agendaTema_3";
+            this.agendaTema_3.Size = new System.Drawing.Size(49, 13);
+            this.agendaTema_3.TabIndex = 30;
+            this.agendaTema_3.Text = "TEMA_3";
+            // 
+            // agendaEstCidadeBairro_3
+            // 
+            this.agendaEstCidadeBairro_3.AutoSize = true;
+            this.agendaEstCidadeBairro_3.Location = new System.Drawing.Point(12, 406);
+            this.agendaEstCidadeBairro_3.Name = "agendaEstCidadeBairro_3";
+            this.agendaEstCidadeBairro_3.Size = new System.Drawing.Size(162, 13);
+            this.agendaEstCidadeBairro_3.TabIndex = 29;
+            this.agendaEstCidadeBairro_3.Text = "ESTADO - CIDADE - BAIRRO_3";
+            // 
+            // agendaData_3
+            // 
+            this.agendaData_3.AutoSize = true;
+            this.agendaData_3.Location = new System.Drawing.Point(13, 356);
+            this.agendaData_3.Name = "agendaData_3";
+            this.agendaData_3.Size = new System.Drawing.Size(48, 13);
+            this.agendaData_3.TabIndex = 28;
+            this.agendaData_3.Text = "DATA_3";
+            // 
+            // agendaIgreja_3
+            // 
+            this.agendaIgreja_3.AutoSize = true;
+            this.agendaIgreja_3.Location = new System.Drawing.Point(12, 339);
+            this.agendaIgreja_3.Name = "agendaIgreja_3";
+            this.agendaIgreja_3.Size = new System.Drawing.Size(57, 13);
+            this.agendaIgreja_3.TabIndex = 27;
+            this.agendaIgreja_3.Text = "IGREJA_3";
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -262,10 +354,20 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1014, 622);
+            this.Controls.Add(this.agendaSermao_3);
+            this.Controls.Add(this.agendaTema_3);
+            this.Controls.Add(this.agendaEstCidadeBairro_3);
+            this.Controls.Add(this.agendaData_3);
+            this.Controls.Add(this.agendaIgreja_3);
+            this.Controls.Add(this.agendaSermao_2);
+            this.Controls.Add(this.agendaTema_2);
+            this.Controls.Add(this.agendaEstCidadeBairro_2);
+            this.Controls.Add(this.agendaData_2);
+            this.Controls.Add(this.agendaIgreja_2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.agendaSermao_1);
             this.Controls.Add(this.agendaTema_1);
-            this.Controls.Add(this.agendaDataCidadeBairro_1);
+            this.Controls.Add(this.agendaEstCidadeBairro_1);
             this.Controls.Add(this.agendaData_1);
             this.Controls.Add(this.agendaIgreja_1);
             this.Controls.Add(this.descriptRaiz);
@@ -298,14 +400,23 @@
         private System.Windows.Forms.ToolStripMenuItem cadastrarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem igrejasCadastradasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem agendarToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem1;
         private System.Windows.Forms.Label agendaIgreja_1;
         private System.Windows.Forms.Label agendaData_1;
-        private System.Windows.Forms.Label agendaDataCidadeBairro_1;
+        private System.Windows.Forms.Label agendaEstCidadeBairro_1;
         private System.Windows.Forms.Label agendaTema_1;
         private System.Windows.Forms.Label agendaSermao_1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label agendaSermao_2;
+        private System.Windows.Forms.Label agendaTema_2;
+        private System.Windows.Forms.Label agendaEstCidadeBairro_2;
+        private System.Windows.Forms.Label agendaData_2;
+        private System.Windows.Forms.Label agendaIgreja_2;
+        private System.Windows.Forms.Label agendaSermao_3;
+        private System.Windows.Forms.Label agendaTema_3;
+        private System.Windows.Forms.Label agendaEstCidadeBairro_3;
+        private System.Windows.Forms.Label agendaData_3;
+        private System.Windows.Forms.Label agendaIgreja_3;
     }
 }

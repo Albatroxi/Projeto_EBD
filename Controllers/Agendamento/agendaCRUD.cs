@@ -39,26 +39,7 @@ namespace Projeto_EBD.Controllers.Agendamento
                             MessageBox.Show("Erro ao criar o agendamento. O ID não foi gerado corretamente.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return false;
                         }
-
-                        /*
-                        // Agora associamos o sermão com o agendamento em uma tabela de relacionamento
-                        var agendamentoSermao = new Model.Agenda.Agendas // Tabela de associação
-                        {
-                            id = novoAgendamento.id,  // ID do agendamento
-                            igreja_id = igrejaId,
-                            data = data,
-                            categoria_id = categoriaId,
-                            sermao_id = sermaoId  // ID do sermão
-                        };
-                        */
-
-                        // Adicionando a associação ao banco de dados
-                        //context.Agendas.Add(agendamentoSermao); // Adiciona na tabela de relacionamento
-                        //context.SaveChanges();
                     }
-
-                    // Mensagem de sucesso
-                    // MessageBox.Show("Agendamento adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return true;
                 }
                 else
@@ -76,48 +57,77 @@ namespace Projeto_EBD.Controllers.Agendamento
             return false;
         }
 
-        public void CarregarInformacoesAgendamento(Label agendaIgreja_1, Label agendaData_1, Label agendaTema_1)
+        public void CarregarInformacoesAgendamento(Label agendaIgreja, Label agendaData, Label agendaTema, Label agendaSermao, Label agendaEstCidadeBairro, int agendamentoIndex)
         {
-            // Obter o agendamento mais recente ou o agendamento desejado
             using (var context = new dbContexto())
             {
-                // Exemplo de obter o primeiro agendamento encontrado (ou qualquer critério desejado)
-                var agendamento = context.Agendas.FirstOrDefault();
+                // Obter os agendamentos mais recentes
+                var agendamentos = context.Agendas
+                    .OrderByDescending(a => a.data) // Ordenar por data decrescente
+                    .Take(3) // Limitar para até 3 registros
+                    .ToList();
 
-                if (agendamento != null)
+                if (agendamentos.Count > agendamentoIndex)
                 {
-                    // Obter a igreja associada ao agendamento
+                    // Há agendamento para o índice fornecido
+                    var agendamento = agendamentos[agendamentoIndex];
                     var igreja = context.Igrejas.FirstOrDefault(i => i.id == agendamento.igreja_id);
-
-                    var igrejaAgenda = context.Agendas.FirstOrDefault(i => i.igreja_id == agendamento.igreja_id);
-
-                    var igrejaAgendaCategoria = context.Categorias.FirstOrDefault(i => i.id == agendamento.igreja_id);
+                    var categoria = context.Categorias.FirstOrDefault(c => c.id == agendamento.categoria_id);
+                    var sermao = context.Sermoes.FirstOrDefault(s => s.id == agendamento.sermao_id);
 
                     if (igreja != null)
                     {
-                        // Exibir as informações da igreja nas labels
-                        agendaIgreja_1.Visible = true;
-                        agendaIgreja_1.Text = igreja.inome;
+                        // Calcular dias restantes
+                        var diasRestantes = (agendamento.data.Date - DateTime.Now.Date).Days;
+                        var diasRestantesTexto = diasRestantes > 0 ? $"{diasRestantes} dias restantes" : "Hoje";
 
-                        agendaData_1.Visible = true;
-                        agendaData_1.Text = igrejaAgenda.data.ToString("dd/MM/yyyy"); // Formato de data (exemplo: 08/12/2024)
+                        // Configurar a cor do texto com base no número de dias restantes
+                        System.Drawing.Color corTexto = diasRestantes > 5 ? System.Drawing.Color.Green :
+                                                        diasRestantes > 2 ? System.Drawing.Color.Orange :
+                                                        System.Drawing.Color.Red;
 
-                        agendaTema_1.Visible = true;
-                        agendaTema_1.Text = igrejaAgendaCategoria.nome;
+                        agendaIgreja.Visible = true;
+                        agendaIgreja.Text = igreja.inome;
 
+                        agendaData.Visible = true;
+                        agendaData.Text = $"{agendamento.data:dd/MM/yyyy} ({diasRestantesTexto})";
+                        agendaData.ForeColor = corTexto; // Aplicar a cor
+                        agendaData.Font = new System.Drawing.Font(agendaData.Font, System.Drawing.FontStyle.Bold); // Negrito
+
+                        agendaTema.Visible = true;
+                        agendaTema.Text = categoria?.nome ?? "Sem tema";
+
+                        agendaSermao.Visible = true;
+                        agendaSermao.Text = sermao?.tema ?? "Sem sermão";
+
+                        agendaEstCidadeBairro.Visible = true;
+                        agendaEstCidadeBairro.Text = $"{igreja.iestado} - {igreja.icidade} - {igreja.ibairro}";
                     }
                     else
                     {
-                        // Caso não encontre a igreja
-                        MessageBox.Show("Igreja não encontrada para o agendamento.");
+                        // Caso não encontre a igreja associada
+                        agendaIgreja.Text = "Igreja não encontrada";
+                        agendaData.Visible = agendaTema.Visible = agendaSermao.Visible = agendaEstCidadeBairro.Visible = false;
                     }
                 }
                 else
                 {
-                    // Caso não haja agendamento
-                    MessageBox.Show("Nenhum agendamento encontrado.");
+                    // Não há agendamentos disponíveis para o índice fornecido
+                    if (agendamentoIndex == 0)
+                    {
+                        // Somente a primeira label exibirá "Sem agendamentos"
+                        agendaIgreja.Visible = true;
+                        agendaIgreja.Text = "Sem agendamentos";
+                    }
+
+                    // Todas as demais labels permanecem ocultas
+                    agendaData.Visible = false;
+                    agendaTema.Visible = false;
+                    agendaSermao.Visible = false;
+                    agendaEstCidadeBairro.Visible = false;
                 }
             }
         }
+
     }
 }
