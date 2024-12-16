@@ -41,6 +41,7 @@
             // 
             this.lbnvSerm.BackColor = System.Drawing.Color.WhiteSmoke;
             this.lbnvSerm.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbnvSerm.Enabled = false;
             this.lbnvSerm.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lbnvSerm.Location = new System.Drawing.Point(12, 59);
             this.lbnvSerm.Name = "lbnvSerm";
@@ -100,11 +101,11 @@
             // camSermArquiv
             // 
             this.camSermArquiv.AutoSize = true;
-            this.camSermArquiv.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.camSermArquiv.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.camSermArquiv.ForeColor = System.Drawing.Color.Gray;
             this.camSermArquiv.Location = new System.Drawing.Point(12, 169);
             this.camSermArquiv.Name = "camSermArquiv";
-            this.camSermArquiv.Size = new System.Drawing.Size(0, 19);
+            this.camSermArquiv.Size = new System.Drawing.Size(0, 13);
             this.camSermArquiv.TabIndex = 8;
             // 
             // cbCategoriaaddSERM

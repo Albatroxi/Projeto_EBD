@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,22 +23,24 @@ namespace Projeto_EBD.Janelas.Igrejas
         {
             InitializeComponent();
 
-            //Carregar as igrejas
+            // Carregar as igrejas
             commIGREJACRUD.CarregarIgrejasCadastradas(cbIgrejas);
 
-            // Caminho da imagem
-            string imagePath = "C:\\Users\\Albatrox\\source\\repos\\Projeto_EBD\\Resources\\IGREJA_EVANG.jpg";
+            // Caminho da imagem incorporada
+            string imageName = "Projeto_EBD.Imagens.IGREJA_EVANG.jpg"; // Nome completo, incluindo o namespace e o caminho da pasta
 
-            // Carregar a imagem original
-            Image originalImage = Image.FromFile(imagePath);
+            // Carregar a imagem incorporada
+            using (Stream stream = GetType().Assembly.GetManifestResourceStream(imageName))
+            {
+                Image originalImage = Image.FromStream(stream);
 
-            // Criar uma imagem transparente
-            Image transparentImage = SetImageOpacity(originalImage, 0.2f); // Opacidade 50%
+                // Criar uma imagem transparente
+                Image transparentImage = SetImageOpacity(originalImage, 0.2f); // Opacidade 20%
 
-            // Definir como plano de fundo
-            this.BackgroundImage = transparentImage;
-            this.BackgroundImageLayout = ImageLayout.Stretch; // Ajustar ao tamanho do formulário
-
+                // Definir como plano de fundo
+                this.BackgroundImage = transparentImage;
+                this.BackgroundImageLayout = ImageLayout.Stretch; // Ajustar ao tamanho do formulário
+            }
 
             // Inicializa as labels como ocultas
             this.label2.Visible = false;
@@ -51,6 +54,7 @@ namespace Projeto_EBD.Janelas.Igrejas
             this.label10.Visible = false;
             this.label11.Visible = false;
         }
+
 
         private Image SetImageOpacity(Image image, float opacity)
         {

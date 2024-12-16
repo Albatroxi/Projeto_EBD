@@ -1,6 +1,7 @@
 ﻿using Projeto_EBD.Controllers.Categoria;
 using Projeto_EBD.Controllers.Sermao;
 using System;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Projeto_EBD.Janelas.Sermaos
@@ -25,8 +26,13 @@ namespace Projeto_EBD.Janelas.Sermaos
         private void addSermDOCs_Click(object sender, EventArgs e)
         {
             string fileUploadNome = commSERMTOOL.carregarArquivoSermao();
+            // Obtém o nome do arquivo sem o caminho e sem a extensão
+            string nomeArquivoSemExtensao = Path.GetFileNameWithoutExtension(fileUploadNome);
+
 
             camSermArquiv.Text = fileUploadNome; // Exibe o caminho do arquivo selecionado
+            lbnvSerm.Text = nomeArquivoSemExtensao; //Exibe o nome do arquivo sem o caminho e sem a extensão na labelbox
+            lbnvSerm.Enabled = false;
         }
 
         private void inserSerm_Click(object sender, EventArgs e)

@@ -18,7 +18,6 @@ namespace Projeto_EBD.Controllers.Sermao
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                //camSermArquiv.Text = openFileDialog.FileName; // Exibe o caminho do arquivo selecionado
                 return openFileDialog.FileName;
             }
 
